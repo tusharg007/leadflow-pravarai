@@ -6,27 +6,27 @@ I define this document as the source of truth for both applications. The local b
 
 `LeadStatus` is one of `new`, `contacted`, `qualified`, `proposal_sent`, `won`, `lost` (labels: New, Contacted, Qualified, Proposal Sent, Won, Lost).
 
-| LeadSummary field | Type | Meaning |
-| --- | --- | --- |
-| id | string | 24 hexadecimal character MongoDB ObjectId |
-| name | string | Trimmed, required, 1–120 characters |
-| company | string or null | Trimmed, at most 120 characters |
-| phone | string or null | Trimmed, at most 30 characters |
-| status | LeadStatus | Initially `new` |
-| followUpAt | ISO timestamp or null | Current follow-up |
-| lastNote | string or null | Most recently saved discussion content |
-| lastDiscussionAt | ISO timestamp or null | That discussion's creation time |
-| createdAt | ISO timestamp | Lead creation time |
-| updatedAt | ISO timestamp | Last lead write |
+| LeadSummary field | Type                  | Meaning                                   |
+| ----------------- | --------------------- | ----------------------------------------- |
+| id                | string                | 24 hexadecimal character MongoDB ObjectId |
+| name              | string                | Trimmed, required, 1–120 characters       |
+| company           | string or null        | Trimmed, at most 120 characters           |
+| phone             | string or null        | Trimmed, at most 30 characters            |
+| status            | LeadStatus            | Initially `new`                           |
+| followUpAt        | ISO timestamp or null | Current follow-up                         |
+| lastNote          | string or null        | Most recently saved discussion content    |
+| lastDiscussionAt  | ISO timestamp or null | That discussion's creation time           |
+| createdAt         | ISO timestamp         | Lead creation time                        |
+| updatedAt         | ISO timestamp         | Last lead write                           |
 
-| Discussion field | Type | Meaning |
-| --- | --- | --- |
-| id | string | ObjectId |
-| leadId | string | Parent lead ObjectId |
-| content | string | Trimmed, 1–5000 characters |
-| kind | `note` or `system` | User note or creation entry |
-| followUpAt | ISO timestamp or null | Follow-up recorded with this entry |
-| createdAt | ISO timestamp | Discussion creation time |
+| Discussion field | Type                  | Meaning                            |
+| ---------------- | --------------------- | ---------------------------------- |
+| id               | string                | ObjectId                           |
+| leadId           | string                | Parent lead ObjectId               |
+| content          | string                | Trimmed, 1–5000 characters         |
+| kind             | `note` or `system`    | User note or creation entry        |
+| followUpAt       | ISO timestamp or null | Follow-up recorded with this entry |
+| createdAt        | ISO timestamp         | Discussion creation time           |
 
 `LeadDetail` contains every `LeadSummary` field plus `discussions: Discussion[]`. Internal `_id` and `__v` fields are never exposed. Optional company and phone values may be omitted, null, empty, or whitespace-only; these normalize to null. Length limits apply after trimming.
 
@@ -36,14 +36,14 @@ All mutation bodies are strict objects. Unknown fields, non-object bodies, missi
 
 ## Endpoints
 
-| Method | Path relative to /api | Success | Expected client errors |
-| --- | --- | --- | --- |
-| GET | /health | 200 `{ "status": "ok" }` | — |
-| GET | /leads | 200 `LeadSummary[]` | 400 |
-| POST | /leads | 201 `LeadSummary` | 400 |
-| GET | /leads/:id | 200 `LeadDetail` | 400, 404 |
-| PATCH | /leads/:id | 200 `LeadSummary` | 400, 404 |
-| POST | /leads/:id/discussions | 201 `{ discussion, lead }` | 400, 404 |
+| Method | Path relative to /api  | Success                    | Expected client errors |
+| ------ | ---------------------- | -------------------------- | ---------------------- |
+| GET    | /health                | 200 `{ "status": "ok" }`   | —                      |
+| GET    | /leads                 | 200 `LeadSummary[]`        | 400                    |
+| POST   | /leads                 | 201 `LeadSummary`          | 400                    |
+| GET    | /leads/:id             | 200 `LeadDetail`           | 400, 404               |
+| PATCH  | /leads/:id             | 200 `LeadSummary`          | 400, 404               |
+| POST   | /leads/:id/discussions | 201 `{ discussion, lead }` | 400, 404               |
 
 Unexpected errors may return 500 on any endpoint. Unsupported routes or HTTP methods return 404.
 
@@ -157,7 +157,10 @@ Response (200):
 Request: `POST /api/leads/507f1f77bcf86cd799439011/discussions`
 
 ```json
-{ "content": "Sent pricing tier PDF.", "followUpAt": "2026-10-13T14:00:00+05:30" }
+{
+  "content": "Sent pricing tier PDF.",
+  "followUpAt": "2026-10-13T14:00:00+05:30"
+}
 ```
 
 Response (201):
@@ -216,7 +219,12 @@ All errors share `{ "error": { "code", "message", "details"? } }`. Details appea
 500 — unexpected failure:
 
 ```json
-{ "error": { "code": "internal_error", "message": "An unexpected error occurred" } }
+{
+  "error": {
+    "code": "internal_error",
+    "message": "An unexpected error occurred"
+  }
+}
 ```
 
 I log unexpected failures internally; the response never contains stack traces, database diagnostics, credentials, or internal error messages. CORS exposes responses only to configured browser origins; requests without an Origin (such as curl) work normally.
