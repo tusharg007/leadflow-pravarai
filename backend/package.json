@@ -6,6 +6,11 @@
   "engines": {
     "node": ">=22.13.0 <23"
   },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "7.0.24"
+    }
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc -p tsconfig.build.json",
