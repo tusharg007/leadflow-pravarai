@@ -17,7 +17,9 @@ export function serializeLead(lead: LeadRecord & { _id: Types.ObjectId }) {
   };
 }
 
-export function serializeDiscussion(discussion: DiscussionRecord & { _id: Types.ObjectId }) {
+export function serializeDiscussion(
+  discussion: DiscussionRecord & { _id: Types.ObjectId },
+) {
   return {
     id: discussion._id.toHexString(),
     leadId: discussion.leadId.toHexString(),

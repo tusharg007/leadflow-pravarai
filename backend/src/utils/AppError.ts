@@ -1,4 +1,7 @@
-export interface ErrorDetail { field: string; message: string }
+export interface ErrorDetail {
+  field: string;
+  message: string;
+}
 export type ErrorCode = 'validation_error' | 'not_found' | 'internal_error';
 
 export class AppError extends Error {

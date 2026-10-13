@@ -7,6 +7,9 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   {
     files: ['**/*.ts'],
-    rules: { '@typescript-eslint/no-explicit-any': 'error', 'no-console': 'error' },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+      'no-console': 'error',
+    },
   },
 );

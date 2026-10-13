@@ -17,7 +17,7 @@ async function shutdown(exitCode: number): Promise<void> {
   try {
     if (server) {
       await new Promise<void>((resolve, reject) => {
-        server?.close((error) => error ? reject(error) : resolve());
+        server?.close((error) => (error ? reject(error) : resolve()));
       });
     }
     await disconnectDb();
@@ -33,12 +33,18 @@ async function shutdown(exitCode: number): Promise<void> {
 async function main(): Promise<void> {
   const config = parseEnv(process.env);
   logger = createLogger(config.LOG_LEVEL);
-  process.once('SIGINT', () => { void shutdown(0); });
-  process.once('SIGTERM', () => { void shutdown(0); });
+  process.once('SIGINT', () => {
+    void shutdown(0);
+  });
+  process.once('SIGTERM', () => {
+    void shutdown(0);
+  });
   await connectDb(config.MONGODB_URI);
   if (shuttingDown) return;
   server = createApp(config).listen(config.PORT);
-  server.once('listening', () => logger.info({ port: config.PORT }, 'API listening'));
+  server.once('listening', () =>
+    logger.info({ port: config.PORT }, 'API listening'),
+  );
   server.once('error', (error) => {
     logger.error({ err: error }, 'HTTP server failed');
     void shutdown(1);
@@ -46,6 +52,9 @@ async function main(): Promise<void> {
 }
 
 main().catch(async (error: unknown) => {
-  logger.error({ err: error }, 'Startup failed; check environment and database availability');
+  logger.error(
+    { err: error },
+    'Startup failed; check environment and database availability',
+  );
   await shutdown(1);
 });
