@@ -5,6 +5,8 @@ import { pinoHttp } from 'pino-http';
 import type { Env } from './config/env.js';
 import { createLogger } from './config/logger.js';
 import { apiRoutes } from './routes/index.js';
+import { notFound } from './middleware/notFound.js';
+import { errorHandler } from './middleware/errorHandler.js';
 
 export function createApp(config: Env) {
   const app = express();
@@ -21,5 +23,7 @@ export function createApp(config: Env) {
   app.use(cors({ origin: config.CORS_ORIGINS }));
   app.use(express.json({ limit: '100kb' }));
   app.use('/api', apiRoutes);
+  app.use(notFound);
+  app.use(errorHandler);
   return app;
 }
