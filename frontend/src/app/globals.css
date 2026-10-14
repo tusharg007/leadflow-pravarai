@@ -13,8 +13,28 @@
   --color-line: #e2e8f0;
 }
 
-body { margin: 0; background: var(--color-canvas); color: var(--color-ink); font-family: var(--font-sans); }
-button, input, textarea { font: inherit; }
-button:not(:disabled) { cursor: pointer; }
-::selection { background: #dbeafe; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+button,
+input,
+textarea {
+  font: inherit;
+}
+button:not(:disabled) {
+  cursor: pointer;
+}
+::selection {
+  background: #dbeafe;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
