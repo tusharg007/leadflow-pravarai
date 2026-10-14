@@ -12,6 +12,8 @@ interface Props {
   children: ReactNode;
   className?: string;
   returnFocus?: () => void;
+  actions?: ReactNode;
+  subtitle?: ReactNode;
 }
 export function Dialog({
   open,
@@ -21,6 +23,8 @@ export function Dialog({
   children,
   className,
   returnFocus,
+  actions,
+  subtitle,
 }: Props) {
   return (
     <Radix.Root open={open} onOpenChange={onOpenChange}>
@@ -43,16 +47,22 @@ export function Dialog({
               <Radix.Title className="break-words text-lg font-semibold">
                 {title}
               </Radix.Title>
+              {subtitle && (
+                <p className="mt-1 text-sm text-slate-600">{subtitle}</p>
+              )}
               <Radix.Description className="sr-only">
                 {description}
               </Radix.Description>
             </div>
-            <Radix.Close
-              className="shrink-0 rounded-md p-2 text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
-              aria-label="Close dialog"
-            >
-              <X className="size-5" />
-            </Radix.Close>
+            <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
+              {actions}
+              <Radix.Close
+                className="shrink-0 rounded-md p-2 text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600"
+                aria-label="Close dialog"
+              >
+                <X className="size-5" />
+              </Radix.Close>
+            </div>
           </div>
           {children}
         </Radix.Content>
