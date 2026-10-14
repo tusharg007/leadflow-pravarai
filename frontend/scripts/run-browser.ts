@@ -134,7 +134,13 @@ async function main() {
   }
 }
 main().catch((error: unknown) => {
-  logger.error({ err: error }, 'Browser run failed');
+  logger.error(
+    {
+      err: error,
+      cause: error instanceof Error ? error.message : 'Unknown failure',
+    },
+    'Browser run failed',
+  );
   if (error instanceof Error && 'stdout' in error)
     logger.error({ output: error.stdout }, 'Browser output');
   process.exitCode = 1;
