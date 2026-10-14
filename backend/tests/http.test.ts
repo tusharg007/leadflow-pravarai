@@ -36,6 +36,28 @@ it('rejects a non-object body', async () => {
   ).toBe('validation_error');
 });
 
+it('uses the validation envelope for unsupported JSON charset', async () => {
+  const error = errorResponse.parse(
+    body(
+      await request(app)
+        .post('/api/leads')
+        .set('Content-Type', 'application/json; charset=unsupported')
+        .send('{"name":"Lead"}')
+        .expect(400),
+    ),
+  );
+  expect(error.error.code).toBe('validation_error');
+  expect(error.error.details?.[0]?.field).toBe('body');
+});
+
+it('uses the not-found envelope for unsupported HTTP methods', async () => {
+  const error = errorResponse.parse(
+    body(await request(app).delete('/api/leads').expect(404)),
+  );
+  expect(error.error.code).toBe('not_found');
+  expect(error.error.details).toBeUndefined();
+});
+
 it('allows the configured browser origin and preflight', async () => {
   const response = await request(app)
     .get('/api/health')
