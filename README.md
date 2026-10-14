@@ -193,7 +193,7 @@ docs/codex/               implementation brief
 ## Assumptions
 
 - I store and transport UTC timestamps and calculate follow-up buckets in the browser's local timezone.
-- I show today's follow-ups only in the pinned section, sorted by time; the rest retain API order. Earlier times today remain pinned, and overdue means a previous day.
+- I show today's follow-ups only in the pinned section, sorted by time; the rest retain API order. Earlier times today remain pinned and show a red overdue chip. A follow-up is overdue strictly before the current instant; exactly now is not overdue.
 - I preserve a lead's follow-up when a note omits `followUpAt`; explicit `null` clears it.
 - I keep the list unpaginated because I expect a small assessment dataset.
 - I use compensated writes instead of transactions so the backend works with standalone MongoDB.

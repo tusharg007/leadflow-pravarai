@@ -1,14 +1,17 @@
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { expect, it } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 import { delay, http, HttpResponse } from 'msw';
 import { renderScreen } from './renderScreen';
 import { base, server, leads, listRequests } from './server';
 import type { Lead } from '@/features/leads/api/types';
-import { localDateValue } from '@/features/leads/lib/format';
+import { absoluteTime, localDateValue } from '@/features/leads/lib/format';
 const sarahId = '507f1f77bcf86cd799439011';
+afterEach(() => vi.useRealTimers());
 
-it('opens the timeline and moves a note follow-up into today without reload', async () => {
+it('moves a past-due note follow-up into today immediately with a red reminder', async () => {
+  vi.useFakeTimers({ toFake: ['Date'] });
+  vi.setSystemTime(new Date(2026, 9, 14, 12));
   const user = userEvent.setup();
   const { client } = renderScreen();
   await user.click(
@@ -25,7 +28,7 @@ it('opens the timeline and moves a note follow-up into today without reload', as
     target: { value: localDateValue(new Date()) },
   });
   fireEvent.change(within(dialog).getByLabelText('Follow-up time'), {
-    target: { value: '14:00' },
+    target: { value: '11:59' },
   });
   server.use(
     http.get(`${base}/leads`, async () => {
@@ -42,11 +45,16 @@ it('opens the timeline and moves a note follow-up into today without reload', as
     ).toBe('Morning follow-up'),
   );
   await user.keyboard('{Escape}');
-  expect(
-    within(
-      screen.getByRole('region', { name: "Today's follow-ups" }),
-    ).getByRole('button', { name: 'View Sarah Connor' }),
-  ).toBeInTheDocument();
+  const card = within(
+    screen.getByRole('region', { name: "Today's follow-ups" }),
+  ).getByRole('button', { name: 'View Sarah Connor' });
+  const reminder = `Overdue: ${absoluteTime(new Date(2026, 9, 14, 11, 59).toISOString())}`;
+  expect(card).toBeInTheDocument();
+  expect(within(card).getByText(reminder).parentElement).toHaveClass(
+    'bg-red-100',
+    'text-red-800',
+  );
+  expect(card).toHaveAccessibleDescription(reminder);
   expect(window.location.search).not.toContain('lead=');
 });
 

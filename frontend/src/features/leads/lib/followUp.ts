@@ -1,4 +1,8 @@
 export type FollowUpKind = 'today' | 'overdue' | 'upcoming' | 'none';
+export function isPastDue(followUpAt: string | null, now: Date): boolean {
+  if (!followUpAt) return false;
+  return new Date(followUpAt).getTime() < now.getTime();
+}
 export function classify(followUpAt: string | null, now: Date): FollowUpKind {
   if (!followUpAt) return 'none';
   const time = new Date(followUpAt).getTime();

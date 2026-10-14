@@ -19,6 +19,7 @@ export function LeadCard({
       data-lead-id={lead.id}
       onClick={() => onOpen(lead.id)}
       aria-label={`View ${lead.name}`}
+      aria-describedby={lead.followUpAt ? `follow-up-${lead.id}` : undefined}
       className={cn(
         'w-full rounded-lg border p-4 text-left shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 sm:p-5',
         today
@@ -64,7 +65,7 @@ export function LeadCard({
         )}
       </div>
       {lead.followUpAt && (
-        <div className="mt-3">
+        <div id={`follow-up-${lead.id}`} className="mt-3">
           <FollowUpChip value={lead.followUpAt} now={now} />
         </div>
       )}

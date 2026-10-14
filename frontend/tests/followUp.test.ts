@@ -1,7 +1,37 @@
 import { expect, it } from 'vitest';
-import { classify, partition } from '@/features/leads/lib/followUp';
+import { classify, isPastDue, partition } from '@/features/leads/lib/followUp';
 
 const now = new Date(2026, 9, 14, 12);
+it('uses strict elapsed-time overdue boundaries independently of today membership', () => {
+  expect(isPastDue(now.toISOString(), now)).toBe(false);
+  expect(isPastDue(new Date(now.getTime() - 1).toISOString(), now)).toBe(true);
+  const minuteAgo = new Date(now.getTime() - 60_000).toISOString();
+  expect(isPastDue(minuteAgo, now)).toBe(true);
+  expect(classify(minuteAgo, now)).toBe('today');
+  expect(isPastDue(new Date(2026, 9, 14).toISOString(), now)).toBe(true);
+  expect(isPastDue(new Date(2026, 9, 14, 23, 59).toISOString(), now)).toBe(
+    false,
+  );
+  expect(isPastDue(new Date(2026, 9, 15).toISOString(), now)).toBe(false);
+  expect(isPastDue(null, now)).toBe(false);
+  expect(isPastDue('invalid', now)).toBe(false);
+  const midnight = new Date(2026, 9, 14);
+  expect(isPastDue(midnight.toISOString(), midnight)).toBe(false);
+  expect(
+    isPastDue(new Date(midnight.getTime() - 1).toISOString(), midnight),
+  ).toBe(true);
+});
+it('compares instants across skipped and repeated DST hours', () => {
+  expect(
+    isPastDue('2026-03-08T06:59:00Z', new Date('2026-03-08T07:00:00Z')),
+  ).toBe(true);
+  expect(
+    isPastDue('2026-11-01T05:30:00Z', new Date('2026-11-01T06:15:00Z')),
+  ).toBe(true);
+  expect(
+    classify('2026-11-01T05:30:00Z', new Date('2026-11-01T06:15:00Z')),
+  ).toBe('today');
+});
 it('runs DST assertions in a timezone with 23- and 25-hour days', () => {
   expect(new Date(2026, 2, 9).getTime() - new Date(2026, 2, 8).getTime()).toBe(
     23 * 3600000,
@@ -54,6 +84,22 @@ it.each([new Date(2026, 2, 8, 12), new Date(2026, 10, 1, 12)])(
     );
     expect(classify(end.toISOString(), date)).toBe('today');
     expect(classify(next.toISOString(), date)).toBe('upcoming');
+    expect(isPastDue(end.toISOString(), date)).toBe(false);
+    expect(isPastDue(next.toISOString(), date)).toBe(false);
+    const minuteAgo = new Date(date.getTime() - 60_000).toISOString();
+    expect(isPastDue(minuteAgo, date)).toBe(true);
+    expect(classify(minuteAgo, date)).toBe('today');
+    expect(
+      isPastDue(
+        new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+        ).toISOString(),
+        date,
+      ),
+    ).toBe(true);
+    expect(isPastDue(date.toISOString(), date)).toBe(false);
   },
 );
 it('moves a previous today follow-up to overdue after midnight', () => {

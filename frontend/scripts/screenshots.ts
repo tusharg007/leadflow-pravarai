@@ -17,6 +17,23 @@ export async function captureScreenshots(
       viewport: { width: 1280, height: 900 },
       timezoneId: process.env.TZ ?? 'Asia/Kolkata',
     });
+    const noon = await page.evaluate(() => {
+      const now = new Date();
+      now.setHours(12, 0, 0, 0);
+      return now.toISOString();
+    });
+    await page.clock.setFixedTime(new Date(noon));
+    const seeded = leadSchema
+      .array()
+      .parse(await (await page.request.get(`${api}/leads`)).json());
+    const sarah = seeded.find((lead) => lead.name === 'Sarah Connor');
+    if (!sarah) throw new Error('Missing Sarah seed');
+    const updated = await page.request.patch(`${api}/leads/${sarah.id}`, {
+      data: {
+        followUpAt: new Date(new Date(noon).getTime() - 60_000).toISOString(),
+      },
+    });
+    expect(updated.status()).toBe(200);
     await page.goto(url);
     await page
       .getByRole('button', { name: 'View Sarah Connor', exact: true })
@@ -69,22 +86,25 @@ export async function captureScreenshots(
     await page
       .getByRole('button', { name: 'View Bill Lumbergh', exact: true })
       .screenshot({ path: `${dir}/overdue-lead.png` });
-    const colors = await page.getByText(/^Overdue:/).evaluate((element) => {
-      const style = getComputedStyle(element.parentElement ?? element);
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) throw new Error('Canvas unavailable');
-      ctx.fillStyle = style.color;
-      ctx.fillRect(0, 0, 1, 1);
-      const foreground = Array.from(ctx.getImageData(0, 0, 1, 1).data);
-      ctx.clearRect(0, 0, 1, 1);
-      ctx.fillStyle = style.backgroundColor;
-      ctx.fillRect(0, 0, 1, 1);
-      return {
-        foreground,
-        background: Array.from(ctx.getImageData(0, 0, 1, 1).data),
-      };
-    });
+    const colors = await page
+      .getByRole('button', { name: 'View Bill Lumbergh', exact: true })
+      .getByText(/^Overdue:/)
+      .evaluate((element) => {
+        const style = getComputedStyle(element.parentElement ?? element);
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) throw new Error('Canvas unavailable');
+        ctx.fillStyle = style.color;
+        ctx.fillRect(0, 0, 1, 1);
+        const foreground = Array.from(ctx.getImageData(0, 0, 1, 1).data);
+        ctx.clearRect(0, 0, 1, 1);
+        ctx.fillStyle = style.backgroundColor;
+        ctx.fillRect(0, 0, 1, 1);
+        return {
+          foreground,
+          background: Array.from(ctx.getImageData(0, 0, 1, 1).data),
+        };
+      });
     const luminance = (values: number[]) =>
       values
         .slice(0, 3)
