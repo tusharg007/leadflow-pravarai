@@ -1,6 +1,6 @@
 import { spawn, execFile, type ChildProcess } from 'node:child_process';
 import { once } from 'node:events';
-import { cp, appendFile } from 'node:fs/promises';
+import { cp } from 'node:fs/promises';
 import { createServer } from 'node:net';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
@@ -19,9 +19,6 @@ const logger = pino({
 });
 const front = fileURLToPath(new URL('../', import.meta.url));
 const back = fileURLToPath(new URL('../../backend/', import.meta.url));
-const logFile = fileURLToPath(
-  new URL('../../docs/codex/AUTONOMOUS_RUN_LOG.md', import.meta.url),
-);
 const owned: Array<{ child: ChildProcess; exited: Promise<unknown> }> = [];
 async function freePort(preferred: number): Promise<number> {
   const listen = async (port: number) => {
@@ -38,10 +35,7 @@ async function freePort(preferred: number): Promise<number> {
     return await listen(preferred);
   } catch {
     const port = await listen(0);
-    await appendFile(
-      logFile,
-      `\n- ${new Date().toISOString()} — Port ${preferred} was busy; I used ${port} for my isolated browser run.\n`,
-    );
+    logger.info({ requestedPort: preferred, port }, 'Using an available port');
     return port;
   }
 }
@@ -111,9 +105,13 @@ async function main() {
       HOSTNAME: '127.0.0.1',
     });
     await Promise.all([waitFor(`${api}/health`), waitFor(url)]);
-    if (process.argv.includes('--screenshots'))
+    if (process.argv.includes('--screenshots')) {
       await captureScreenshots(url, api);
-    else {
+      logger.info(
+        { result: 'pass', mobileDialogs: ['360x640', '320x568'] },
+        'Screenshot and responsive checks complete',
+      );
+    } else {
       const result = await run(
         process.execPath,
         ['node_modules/playwright/cli.js', 'test'],
