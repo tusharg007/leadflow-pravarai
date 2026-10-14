@@ -1,10 +1,12 @@
 # AI usage
 
-I used OpenAI Codex in the desktop app for Phases 0 and 1. I supplied the standing instructions in `AGENTS.md`, the master prompt and implementation plan in `docs/codex/`, and the local assessment and wireframes. I constrained the work to the contract, repository hygiene, and backend.
+I used OpenAI Codex in the desktop app for all phases. I supplied `AGENTS.md`, the master prompt, implementation plan, and local assessment/wireframes. I initially constrained work to Phases 0 and 1, then authorized an unattended run for Phases 2–5.
 
 Codex generated the hygiene files, API documentation, backend configuration, Mongoose models, Zod validation, service and HTTP layers, centralized error handling, tests, seed data, and setup documentation. It verified npm package versions, generated the lockfile, ran automated checks, and created the local Conventional Commits. It inspected the boilerplate ZIP as a style reference without copying its application features.
 
-I distinguish automated checks from personal review: the recorded verification was performed by Codex, and I have not yet completed my own code review or frontend walkthrough. I will update this document after later phases and my final review. I have no AI features in the application itself.
+Codex also generated the Next.js frontend, Radix primitives, TanStack Query caches, forms, URL state, MSW tests, browser smoke/screenshot tools and Docker delivery. It corrected logging/CORS, abort handling, strict optional typing, font resolution, responsive truncation and runner compatibility while verifying the implementation.
+
+I distinguish automated checks from personal review: Codex performed recorded checks and browser verification; I have not yet completed my own personal review or submission video. I have no AI features in the app. I record the unattended scope in [the run prompt](codex/07_UNATTENDED_RUN_PROMPT.md), decisions in [the log](codex/AUTONOMOUS_RUN_LOG.md), and results in [the report](codex/06_AUTONOMOUS_RUN_REPORT.md).
 
 ## Direct implementation prompt
 
