@@ -8,6 +8,7 @@ interface Props {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: ReactNode;
+  titleText?: string;
   description: string;
   children: ReactNode;
   className?: string;
@@ -19,6 +20,7 @@ export function Dialog({
   open,
   onOpenChange,
   title,
+  titleText,
   description,
   children,
   className,
@@ -38,17 +40,22 @@ export function Dialog({
             }
           }}
           className={cn(
-            'fixed left-1/2 top-1/2 z-50 flex max-h-[90dvh] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-xl bg-white shadow-xl focus:outline-none',
+            'fixed left-1/2 top-1/2 z-50 flex max-h-[90dvh] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 flex-col overflow-x-hidden overflow-y-auto rounded-xl bg-white shadow-xl focus:outline-none',
             className,
           )}
         >
           <div className="flex shrink-0 flex-wrap items-start justify-between gap-4 border-b border-line p-5">
             <div className="min-w-0 flex-1 basis-40">
-              <Radix.Title className="break-words text-lg font-semibold">
+              <Radix.Title
+                title={titleText}
+                className="line-clamp-2 text-lg font-semibold [overflow-wrap:anywhere]"
+              >
                 {title}
               </Radix.Title>
               {subtitle && (
-                <p className="mt-1 text-sm text-slate-600">{subtitle}</p>
+                <p className="mt-1 truncate text-sm text-slate-600">
+                  {subtitle}
+                </p>
               )}
               <Radix.Description className="sr-only">
                 {description}

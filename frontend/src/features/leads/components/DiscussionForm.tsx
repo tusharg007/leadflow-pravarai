@@ -49,9 +49,9 @@ export function DiscussionForm({
       onSubmit={save}
       noValidate
       aria-label="Add discussion"
-      className="shrink-0 border-t border-line bg-white p-4 sm:p-5"
+      className="min-w-0 shrink-0 border-t border-line bg-white p-4 sm:p-5"
     >
-      <fieldset disabled={pending}>
+      <fieldset disabled={pending} className="min-w-0">
         <FormField
           id="note-content"
           label="Log a new discussion"
@@ -94,6 +94,7 @@ export function DiscussionForm({
             <Input
               id="follow-up-date"
               type="date"
+              className="min-w-0"
               {...form.register('date')}
               min={localDateValue(now)}
               disabled={!setFollowUp || pending}
@@ -109,6 +110,7 @@ export function DiscussionForm({
             <Input
               id="follow-up-time"
               type="time"
+              className="min-w-0"
               {...form.register('time')}
               disabled={!setFollowUp || pending}
               aria-invalid={Boolean(errors.time)}

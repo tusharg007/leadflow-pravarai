@@ -103,25 +103,20 @@ export async function captureScreenshots(
       (Math.max(foreground, background) + 0.05) /
       (Math.min(foreground, background) + 0.05);
     expect(contrast).toBeGreaterThanOrEqual(4.5);
-    const result = leadSchema
-      .array()
-      .parse(await (await page.request.get(`${api}/leads`)).json());
-    const lead = result[0];
-    if (!lead) throw new Error('Missing seed');
-    await page.route('**/api/leads*', async (route) => {
-      if (new URL(route.request().url()).pathname.endsWith('/leads'))
-        await route.fulfill({
-          json: [
-            {
-              ...lead,
-              name: 'A'.repeat(120),
-              company: 'B'.repeat(120),
-              lastNote: 'N'.repeat(5000),
-            },
-          ],
-        });
-      else await route.continue();
+    const name = 'A'.repeat(120);
+    const company = 'B'.repeat(120);
+    const created = await page.request.post(`${api}/leads`, {
+      data: { name, company, phone: '1234567890'.repeat(3) },
     });
+    expect(created.status()).toBe(201);
+    const lead = leadSchema.parse(await created.json());
+    const note = await page.request.post(
+      `${api}/leads/${lead.id}/discussions`,
+      {
+        data: { content: 'N'.repeat(5000) },
+      },
+    );
+    expect(note.status()).toBe(201);
     for (const width of [360, 768, 1280]) {
       await page.setViewportSize({ width, height: width === 360 ? 640 : 900 });
       await page.reload();
@@ -133,6 +128,45 @@ export async function captureScreenshots(
           () => document.documentElement.scrollWidth <= window.innerWidth,
         ),
       ).toBe(true);
+    }
+    for (const viewport of [
+      { width: 360, height: 640 },
+      { width: 320, height: 568 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await page.goto(`${url}/?lead=${lead.id}`);
+      await page.getByLabel('Log a new discussion').waitFor();
+      const dialog = page.getByRole('dialog');
+      const title = dialog.getByRole('heading');
+      await expect(title).toHaveAttribute('title', `${name} (${company})`);
+      await expect(title).toHaveText(`${name} (${company})`);
+      await page.getByLabel('Set Follow-up', { exact: true }).check();
+      for (const control of [
+        page.getByLabel('Follow-up date', { exact: true }),
+        page.getByLabel('Follow-up time', { exact: true }),
+        page.getByRole('button', { name: 'Save Note', exact: true }),
+      ]) {
+        await control.scrollIntoViewIfNeeded();
+        await expect(control).toBeInViewport({ ratio: 1 });
+        const bounds = await control.boundingBox();
+        const dialogBounds = await dialog.boundingBox();
+        if (!bounds || !dialogBounds) throw new Error('Missing dialog bounds');
+        expect(bounds.x).toBeGreaterThanOrEqual(dialogBounds.x);
+        expect(bounds.y).toBeGreaterThanOrEqual(dialogBounds.y);
+        expect(bounds.x + bounds.width).toBeLessThanOrEqual(
+          dialogBounds.x + dialogBounds.width,
+        );
+        expect(bounds.y + bounds.height).toBeLessThanOrEqual(
+          dialogBounds.y + dialogBounds.height,
+        );
+      }
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= window.innerWidth,
+        ),
+      ).toBe(true);
+      if (viewport.width === 360)
+        await page.screenshot({ path: `${dir}/timeline-long-mobile.png` });
     }
   } finally {
     await browser.close();

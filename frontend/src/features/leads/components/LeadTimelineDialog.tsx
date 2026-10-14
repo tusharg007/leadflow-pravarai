@@ -47,6 +47,11 @@ export function LeadTimelineDialog({
           'Lead timeline'
         )
       }
+      titleText={
+        data
+          ? `${data.name}${data.company ? ` (${data.company})` : ''}`
+          : 'Lead timeline'
+      }
       subtitle={data?.phone}
       actions={
         data && <StatusSelect id={id} status={data.status} disabled={pending} />
@@ -62,7 +67,7 @@ export function LeadTimelineDialog({
         )?.focus();
       }}
     >
-      <div className="min-h-0 flex-1 overflow-y-auto bg-slate-50 p-5 sm:p-6">
+      <div className="min-h-32 flex-1 overflow-y-auto bg-slate-50 p-5 sm:p-6">
         {query.isPending ? (
           <ListSkeleton />
         ) : query.isError ? (
