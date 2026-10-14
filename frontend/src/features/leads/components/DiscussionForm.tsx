@@ -39,7 +39,9 @@ export function DiscussionForm({
       });
       form.reset();
     } catch (error) {
-      mapFormError(error, form.setError, ['content', 'date', 'time']);
+      mapFormError(error, form.setError, ['content', 'date', 'time'], {
+        followUpAt: 'date',
+      });
     }
   });
   return (

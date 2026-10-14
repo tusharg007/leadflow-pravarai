@@ -28,12 +28,12 @@ export function LeadScreen() {
     <>
       <Header onAdd={() => setAdding(true)} />
       <main className="mx-auto max-w-[62rem] px-4 py-6 sm:px-6 sm:py-8">
-        <div className="mb-7 flex flex-col-reverse gap-4">
+        <div className="mb-7 flex flex-col-reverse gap-4 lg:flex-row lg:items-center lg:justify-between">
           <StatusFilter
             status={url.status}
             onChange={(value) => url.setParam('status', value)}
           />
-          <div className="sm:self-end">
+          <div className="shrink-0">
             <LeadSearch
               value={url.q}
               onChange={(value) => url.setParam('q', value)}

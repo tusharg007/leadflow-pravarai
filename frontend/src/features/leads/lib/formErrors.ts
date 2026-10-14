@@ -4,11 +4,14 @@ export function mapFormError<T extends FieldValues>(
   error: unknown,
   setError: UseFormSetError<T>,
   fields: ReadonlyArray<FieldPath<T>>,
+  aliases: Readonly<Record<string, FieldPath<T>>> = {},
 ): void {
   let mapped = false;
   if (error instanceof ApiError)
     for (const detail of error.details) {
-      const field = fields.find((item) => item === detail.field);
+      const field = fields.find(
+        (item) => item === (aliases[detail.field] ?? detail.field),
+      );
       if (field) {
         setError(field, { message: detail.message });
         mapped = true;

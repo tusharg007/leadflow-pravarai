@@ -42,8 +42,8 @@ export function Dialog({
             className,
           )}
         >
-          <div className="flex shrink-0 items-start justify-between gap-4 border-b border-line p-5">
-            <div className="min-w-0">
+          <div className="flex shrink-0 flex-wrap items-start justify-between gap-4 border-b border-line p-5">
+            <div className="min-w-0 flex-1 basis-40">
               <Radix.Title className="break-words text-lg font-semibold">
                 {title}
               </Radix.Title>
