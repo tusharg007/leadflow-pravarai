@@ -44,6 +44,8 @@ it('allows the configured browser origin and preflight', async () => {
   expect(response.headers['access-control-allow-origin']).toBe(
     'http://localhost:3000',
   );
+  expect(response.headers['cross-origin-resource-policy']).toBe('cross-origin');
+  expect(response.headers.vary).toContain('Origin');
   await request(app)
     .options('/api/leads')
     .set('Origin', 'http://localhost:3000')

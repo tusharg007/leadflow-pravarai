@@ -31,7 +31,7 @@ export function createApp(
       }),
     }),
   );
-  app.use(helmet());
+  app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
   app.use(cors({ origin: config.CORS_ORIGINS }));
   app.use(express.json({ limit: '100kb' }));
   app.use('/api', apiRoutes);
