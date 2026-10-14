@@ -8,19 +8,27 @@ import { apiRoutes } from './routes/index.js';
 import { notFound } from './middleware/notFound.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
-export function createApp(config: Env) {
+export function createApp(
+  config: Env,
+  logger = createLogger(config.LOG_LEVEL),
+) {
   const app = express();
   app.disable('x-powered-by');
   app.use(
     pinoHttp({
-      logger: createLogger(config.LOG_LEVEL),
+      logger,
       serializers: {
-        req: (req: { id: unknown; method: string; url: string }) => ({
-          id: req.id,
+        req: (req: { method: string; url: string }) => ({
           method: req.method,
           path: req.url.split('?')[0],
         }),
+        res: (res: { statusCode: number }) => ({ statusCode: res.statusCode }),
+        err: () => ({ type: 'RequestError' }),
       },
+      customErrorObject: (_req, res, _error, value) => ({
+        res,
+        responseTime: value.responseTime,
+      }),
     }),
   );
   app.use(helmet());
