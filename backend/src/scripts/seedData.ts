@@ -87,25 +87,24 @@ const definitions: SeedDefinition[] = [
 ];
 
 export function buildSeedData(now: Date) {
+  const minute = 60_000;
+  const hour = 60 * minute;
+  const day = 24 * hour;
+  const followUpOffsets = {
+    today: 30 * minute,
+    overdue: -26 * hour,
+    future: 50 * hour,
+  };
   return definitions.map((definition, index) => {
-    const latestAt = new Date(now);
-    latestAt.setDate(latestAt.getDate() - definition.daysAgo);
-    latestAt.setHours(latestAt.getHours() - 2);
+    const latestAt = new Date(
+      now.getTime() - definition.daysAgo * day - 2 * hour,
+    );
     const firstAt = new Date(latestAt.getTime() - 3 * 86400000);
     const createdAt = new Date(firstAt.getTime() - 86400000);
-    let followUpAt: Date | null = null;
-    if (definition.followUp !== 'none') {
-      followUpAt = new Date(now);
-      followUpAt.setDate(
-        followUpAt.getDate() +
-          (definition.followUp === 'overdue'
-            ? -1
-            : definition.followUp === 'future'
-              ? 2
-              : 0),
-      );
-      followUpAt.setHours(14, 0, 0, 0);
-    }
+    const followUpAt =
+      definition.followUp === 'none'
+        ? null
+        : new Date(now.getTime() + followUpOffsets[definition.followUp]);
     const leadId = new Types.ObjectId(
       `6c656164666c6f77${(index + 1).toString(16).padStart(8, '0')}`,
     );

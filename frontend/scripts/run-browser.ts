@@ -87,7 +87,6 @@ async function main() {
       NEXT_PUBLIC_API_URL: api,
       NODE_ENV: 'production',
       LOG_LEVEL: 'warn',
-      TZ: 'Asia/Kolkata',
     };
     await run(
       process.execPath,

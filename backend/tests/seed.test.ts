@@ -2,6 +2,7 @@ import { expect, it, vi } from 'vitest';
 import { Lead, leadStatuses } from '../src/models/lead.model.js';
 import { Discussion } from '../src/models/discussion.model.js';
 import { seedDatabase } from '../src/scripts/seedDatabase.js';
+import { buildSeedData } from '../src/scripts/seedData.js';
 import { useTestDatabase } from './helpers.js';
 
 useTestDatabase();
@@ -26,18 +27,51 @@ it('seeds all statuses with three discussions each and relative follow-ups', asy
   const sarah = leads.find((lead) => lead.name === 'Sarah Connor');
   expect(sarah?.company).toBe('Acme Corp');
   expect(sarah?.phone).toBe('555-0199');
-  expect(sarah?.followUpAt?.toDateString()).toBe(now.toDateString());
-  expect(sarah?.followUpAt?.getHours()).toBe(14);
-  const start = new Date(now);
-  start.setHours(0, 0, 0, 0);
-  const end = new Date(start);
-  end.setDate(end.getDate() + 1);
+  expect(sarah?.followUpAt?.getTime()).toBe(now.getTime() + 30 * 60_000);
   expect(
-    leads.filter((lead) => lead.followUpAt && lead.followUpAt < start),
-  ).toHaveLength(1);
+    leads.find((lead) => lead.name === 'Bill Lumbergh')?.followUpAt?.getTime(),
+  ).toBe(now.getTime() - 26 * 3_600_000);
   expect(
-    leads.filter((lead) => lead.followUpAt && lead.followUpAt >= end),
-  ).toHaveLength(1);
+    leads.find((lead) => lead.name === 'Diana Prince')?.followUpAt?.getTime(),
+  ).toBe(now.getTime() + 50 * 3_600_000);
+});
+
+it('keeps exact seed instants across timezones, midnight and DST transitions', () => {
+  const originalTimezone = process.env.TZ;
+  try {
+    for (const timezone of [
+      'UTC',
+      'Asia/Kolkata',
+      'America/Los_Angeles',
+      'Pacific/Auckland',
+    ]) {
+      process.env.TZ = timezone;
+      for (const instant of [
+        '2026-10-13T23:50:00Z',
+        '2026-03-08T09:50:00Z',
+        '2026-11-01T08:50:00Z',
+      ]) {
+        const now = new Date(instant);
+        const data = buildSeedData(now);
+        expect(
+          data.map(({ lead }) => lead.followUpAt?.getTime() ?? null),
+        ).toEqual([
+          now.getTime() + 30 * 60_000,
+          null,
+          now.getTime() - 26 * 3_600_000,
+          null,
+          now.getTime() + 50 * 3_600_000,
+          null,
+        ]);
+        expect(data[0]?.lead.lastDiscussionAt.getTime()).toBe(
+          now.getTime() - 50 * 3_600_000,
+        );
+      }
+    }
+  } finally {
+    if (originalTimezone === undefined) delete process.env.TZ;
+    else process.env.TZ = originalTimezone;
+  }
 });
 
 it('reruns without duplicates and preserves user edits and timestamps', async () => {
@@ -67,8 +101,8 @@ it('resets all data and reseeds with dates relative to the new run', async () =>
   expect(await Lead.countDocuments()).toBe(6);
   expect(await Lead.exists({ name: 'Nonfixture lead' })).toBeNull();
   expect(
-    (await Lead.findOne({ name: 'Sarah Connor' }))?.followUpAt?.toDateString(),
-  ).toBe(now.toDateString());
+    (await Lead.findOne({ name: 'Sarah Connor' }))?.followUpAt?.getTime(),
+  ).toBe(now.getTime() + 30 * 60_000);
   expect(await Discussion.countDocuments()).toBe(18);
 });
 

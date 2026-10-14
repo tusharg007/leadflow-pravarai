@@ -126,7 +126,6 @@ For a manual production frontend I run `npm run build` and `npm start` from `fro
 | LOG_LEVEL           | info                               | fatal, error, warn, info, debug, trace, or silent                          |
 | NEXT_PUBLIC_API_URL | http://localhost:4000/api          | Browser API URL embedded at build time; passed as a Compose build argument |
 | FRONTEND_PORT       | 3000                               | Compose frontend host port; internal port stays 3000                       |
-| TZ                  | Asia/Kolkata                       | Seed calendar timezone; I match the demo browser's timezone                |
 
 In Compose, `PORT` is the backend host port; internal backend port remains 4000. Compose fixes `MONGODB_URI` to its private service and `NODE_ENV` to production. My optional browser runner sets `FRONTEND_URL`/`E2E_API_URL` for alternate free ports; they are unused by the product and can also configure a direct Playwright run.
 
@@ -134,9 +133,9 @@ I never commit real `.env` files. My logs exclude request bodies, headers, query
 
 ## Seed
 
-I seed six fictional leads covering all statuses, with three discussions each. I include Sarah Connor, Hank Scorpio, Bill Lumbergh, Bruce Wayne, Diana Prince, and Peter Parker. Sarah has a follow-up today at 2 PM; Bill has one yesterday; Diana has one in two days.
+I seed six fictional leads covering all statuses, with three discussions each. I include Sarah Connor, Hank Scorpio, Bill Lumbergh, Bruce Wayne, Diana Prince, and Peter Parker. Relative to the seed instant, Sarah's follow-up is 30 minutes ahead, Bill's is 26 hours earlier, and Diana's is 50 hours ahead.
 
-I calculate seed dates in the process's local timezone and store UTC dates. For a browser walkthrough, I run the seed in the same timezone as my browser. Repeated seed runs skip fixtures with their deterministic IDs and preserve user changes. I use `npm run seed -- --reset` (or `npm run seed:prod -- --reset`) only when I intend to delete **all leads and discussions in the configured database** and refresh the fixtures relative to the current date. I do not run seed processes concurrently.
+I calculate seed dates with elapsed millisecond offsets and store UTC dates, independently of the process timezone. Sarah's follow-up can fall on the next local day when I seed within 30 minutes of midnight. Repeated seed runs skip fixtures with their deterministic IDs and preserve user changes. I use `npm run seed -- --reset` (or `npm run seed:prod -- --reset`) only when I intend to delete **all leads and discussions in the configured database** and refresh the fixtures relative to the current instant. I do not run seed processes concurrently.
 
 Inside Docker, I use `docker compose -p leadflow exec -T backend npm run seed:prod`; I append `-- --reset` only when I intend to rebuild that project's demo data.
 
