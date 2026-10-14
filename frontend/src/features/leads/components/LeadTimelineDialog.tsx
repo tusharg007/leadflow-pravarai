@@ -72,7 +72,7 @@ export function LeadTimelineDialog({
               void query.refetch();
             }}
           />
-        ) : (
+        ) : data ? (
           <>
             {data.followUpAt && (
               <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
@@ -89,7 +89,7 @@ export function LeadTimelineDialog({
             )}
             <Timeline entries={data.discussions} now={now} />
           </>
-        )}
+        ) : null}
       </div>
       {data && !query.isError && (
         <DiscussionForm id={id} disabled={pending} now={now} />

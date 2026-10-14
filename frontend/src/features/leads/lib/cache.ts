@@ -23,7 +23,11 @@ export function updateLists(client: QueryClient, lead: Lead): void {
     const filters = filtersSchema.safeParse(key[1]);
     if (!filters.success) continue;
     const without = data.filter((item) => item.id !== lead.id);
-    const next = matches(lead, filters.data) ? [...without, lead] : without;
+    const selected: LeadFilters = {
+      ...(filters.data.status ? { status: filters.data.status } : {}),
+      ...(filters.data.q ? { q: filters.data.q } : {}),
+    };
+    const next = matches(lead, selected) ? [...without, lead] : without;
     next.sort(
       (a, b) =>
         (b.lastDiscussionAt ? Date.parse(b.lastDiscussionAt) : -Infinity) -
