@@ -5,7 +5,7 @@ import { Providers } from './providers';
 import './globals.css';
 
 const inter = localFont({
-  src: '../../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2',
+  src: '../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2',
   variable: '--font-inter',
   display: 'swap',
 });
