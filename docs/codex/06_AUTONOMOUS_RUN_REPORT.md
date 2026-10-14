@@ -106,3 +106,32 @@ I wait for healthy services before the seed command. Existing project demo data 
 4. I will perform my personal code review, note the development-tool advisories, and record the submission video.
 
 I leave only local Conventional Commits, generated screenshots and the preserved project demo volume. The final tracking audit confirms no real `.env` files, reference files or `.cache/` content are tracked.
+
+## Fix pass — October 15, 2026
+
+I completed the six requested fixes in separate Conventional Commits. I kept strict TypeScript, lint rules, the API contract, and the personal-review/video sentences unchanged.
+
+| Item | Commit    | Change                                                                                                                                   | Backend tests | Frontend tests | lint / typecheck / test / build, both apps |
+| ---- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------- | -------------- | ------------------------------------------ |
+| 1    | `e4533f4` | Elapsed seed offsets (+30 minutes, −26 hours, +50 hours); timezone/midnight/DST tests; removed seed TZ settings                          | 68            | 32             | PASS                                       |
+| 2    | `83fac8f` | Two-line accessible title, truncated phone, minimum body height, whole-dialog scrolling and mobile browser checks                        | 68            | 32             | PASS                                       |
+| 3    | `30df6b5` | Strict instant-based overdue chips with unchanged calendar-day pinning; boundary, rendering and MSW cache tests; regenerated screenshots | 68            | 39             | PASS                                       |
+| 4    | `001bd39` | Body-dependent JSON Content-Type; GET and caller-header tests                                                                            | 68            | 41             | PASS                                       |
+| 5    | `1a0f255` | Setup-first README, removed machine-specific workaround/assignment assumption, relative report/log paths                                 | 68            | 41             | PASS                                       |
+| 6    | `ae25c61` | Stdout reporting for browser results and port fallback; removed run-log append                                                           | 68            | 41             | PASS                                       |
+
+I reran the final gates after all six commits:
+
+| Command              | Backend                 | Frontend                |
+| -------------------- | ----------------------- | ----------------------- |
+| npm run lint         | PASS                    | PASS                    |
+| npm run typecheck    | PASS                    | PASS                    |
+| npm test             | PASS: 68 tests, 5 files | PASS: 41 tests, 8 files |
+| npm run build        | PASS                    | PASS                    |
+| npm run format:check | PASS                    | PASS                    |
+
+I reran `npm run test:e2e`: **1 passed**, including real API note movement and status persistence after reload. I deliberately occupied 4000 with a temporary listener I owned; the runner selected 54640 and printed that fallback to stdout. I compared every file under `docs/` before/after the smoke: none changed. I stopped that listener and all owned test servers afterwards.
+
+I regenerated seven screenshots with `npm run screenshots`. Browser assertions passed at 360×640 and 320×568 for a real lead with 120-character unbroken name/company and a 5000-character note: date, time and Save Note each fit the viewport and dialog bounds after scrolling, with no page overflow. I also verified 360/768/1280 layouts, focus behavior and overdue contrast. I saved [the long mobile timeline](../screenshots/timeline-long-mobile.png) and captured Sarah's earlier-today red chip while she remains pinned.
+
+I validated `docker compose -p leadflow config --quiet`; I did not repeat the earlier clean-clone Docker build during this fix pass. I found no new unresolved issue, tracked environment secrets, reference files or cache artifacts. I used the installed npm CLI on this machine; the README now gives standard npm commands. I retain the earlier phase records as historical evidence; this section supersedes their seed-timezone and overdue descriptions. Sarah's +30-minute seed follow-up can cross local midnight, while overdue styling always compares exact instants.
