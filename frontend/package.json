@@ -6,6 +6,11 @@
   "engines": {
     "node": ">=22.13.0 <23"
   },
+  "config": {
+    "mongodbMemoryServer": {
+      "version": "7.0.24"
+    }
+  },
   "scripts": {
     "test:e2e": "tsx scripts/run-browser.ts",
     "screenshots": "tsx scripts/run-browser.ts --screenshots",
@@ -39,6 +44,8 @@
     "zod": "4.6.7"
   },
   "devDependencies": {
+    "mongodb-memory-server": "11.3.0",
+    "pino": "10.4.0",
     "@playwright/test": "1.64.0",
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.3",

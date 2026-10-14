@@ -120,7 +120,10 @@ it('keeps long note/name text available in title tooltips', async () => {
   renderScreen();
   const card = await screen.findByRole('button', { name: `View ${lead.name}` });
   expect(within(card).getByTitle(lead.name)).toHaveTextContent(lead.name);
-  expect(card.querySelector('p[title]')).toHaveAttribute('title', lead.lastNote);
+  expect(card.querySelector('p[title]')).toHaveAttribute(
+    'title',
+    lead.lastNote,
+  );
 });
 it('retains note text on API failure and maps follow-up errors to its inputs', async () => {
   server.use(

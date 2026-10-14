@@ -5,12 +5,18 @@ import { createServer } from 'node:net';
 import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 import { setTimeout as delay } from 'node:timers/promises';
-import { MongoMemoryServer } from '../../backend/node_modules/mongodb-memory-server/index.js';
-import { createLogger } from '../../backend/src/config/logger';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import { pino } from 'pino';
 import { captureScreenshots } from './screenshots';
 
 const run = promisify(execFile);
-const logger = createLogger('info');
+const logger = pino({
+  serializers: {
+    err: (error: unknown) => ({
+      type: error instanceof Error ? error.name : 'UnknownError',
+    }),
+  },
+});
 const front = fileURLToPath(new URL('../', import.meta.url));
 const back = fileURLToPath(new URL('../../backend/', import.meta.url));
 const logFile = fileURLToPath(
