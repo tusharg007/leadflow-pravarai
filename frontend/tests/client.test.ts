@@ -3,6 +3,35 @@ import { z } from 'zod';
 import { apiRequest, ApiError } from '@/features/leads/api/client';
 
 afterEach(() => vi.restoreAllMocks());
+it('sends GET requests without a Content-Type header', async () => {
+  const fetch = vi
+    .spyOn(globalThis, 'fetch')
+    .mockResolvedValue(new Response('[]', { status: 200 }));
+  await apiRequest('/leads', z.array(z.unknown()), {
+    method: 'GET',
+    headers: new Headers({ Accept: 'application/json' }),
+  });
+  const headers = new Headers(fetch.mock.calls[0]?.[1]?.headers);
+  expect(headers.has('Content-Type')).toBe(false);
+  expect(headers.get('Accept')).toBe('application/json');
+});
+it('adds JSON Content-Type for a body and preserves an explicit caller value', async () => {
+  const fetch = vi
+    .spyOn(globalThis, 'fetch')
+    .mockImplementation(async () => new Response('{}', { status: 200 }));
+  await apiRequest('/leads', z.unknown(), { method: 'POST', body: '{}' });
+  expect(
+    new Headers(fetch.mock.calls[0]?.[1]?.headers).get('Content-Type'),
+  ).toBe('application/json');
+  await apiRequest('/leads', z.unknown(), {
+    method: 'POST',
+    body: '{}',
+    headers: [['Content-Type', 'application/problem+json']],
+  });
+  expect(
+    new Headers(fetch.mock.calls[1]?.[1]?.headers).get('Content-Type'),
+  ).toBe('application/problem+json');
+});
 it('rejects successful responses that violate the schema', async () => {
   vi.spyOn(globalThis, 'fetch').mockResolvedValue(
     new Response('{"name":42}', { status: 200 }),
