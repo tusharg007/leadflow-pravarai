@@ -25,7 +25,7 @@ I made logical Conventional Commits for each layer/fix. The principal commits ar
 | npm run build        | PASS                           | PASS, standalone output        |
 | npm run format:check | PASS                           | PASS                           |
 
-I used Node 22.21.0/npm 10.9.4 locally. Because the machine's npm launcher is broken, I invoked `node 'C:/Program Files/node_modules/npm/bin/npm-cli.js'` followed by the normal npm arguments. My frontend production-only `npm audit --omit=dev` reported **zero vulnerabilities**; backend installs also reported zero. The separate frontend development audit limitation is below.
+I used Node 22.21.0/npm 10.9.4 locally. Because the machine's npm launcher is broken, I invoked the installed `node_modules/npm/bin/npm-cli.js` through Node, followed by the normal npm arguments. My frontend production-only `npm audit --omit=dev` reported **zero vulnerabilities**; backend installs also reported zero. The separate frontend development audit limitation is below.
 
 I ran one Playwright test against my isolated compiled applications and again against Docker: **1 passed** on both runs. It seeds/prepares Sarah, opens the app/timeline, adds a note with today's follow-up, confirms the pinned section, changes status, reloads, and confirms history/status persisted. I generated six screenshots under `docs/screenshots/` and verified 360/768/1280 layouts, dialog boundaries, keyboard traps/focus return, visible save controls, maximum-length name/company/note overflow, and overdue-chip contrast of at least 4.5:1.
 
@@ -33,7 +33,7 @@ I did not skip/delete tests, weaken lint or compiler settings, or introduce `any
 
 ## Clean-clone result
 
-I cloned committed delivery snapshot `592b549` into `E:/LeadFlow/.cache/clean-clone-20261014`, with no local environment files, node_modules or build output. Application/Docker source remained unchanged after that snapshot; later changes record evidence and update generated screenshots.
+I cloned committed delivery snapshot `592b549` into `.cache/clean-clone-20261014`, with no local environment files, node_modules or build output. Application/Docker source remained unchanged after that snapshot; later changes record evidence and update generated screenshots.
 
 I followed the README setup from the clone:
 
@@ -80,13 +80,13 @@ Only the project's new containers and `leadflow_default` network were removed. I
 
 1. **P2 — Development dependency advisory.** `frontend/package-lock.json` includes the Next ESLint chain `eslint-config-next → @next/eslint-plugin-next → fast-glob → micromatch → braces@3.0.3`. Exact audit title: `braces vulnerable to stack-exhaustion denial of service through deeply nested patterns` ([GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)). npm reports `5 high severity vulnerabilities` across this chain. Registry latest braces is still 3.0.3; npm's suggested fix downgrades the Next lint config to 14.2.35. I retained compatible lint checks and recorded the limitation instead of forcing that downgrade. The production-only audit is clean.
 2. **P3 — Unsupported lint release.** `frontend/package.json` pins ESLint 9.39.5 because `eslint-plugin-react` supports up to major 9. Exact install warning: `npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.` I can upgrade once the Next React plugin supports ESLint 10.
-3. **P3 — Local npm installation.** The normal Windows launcher fails with `Cannot find module 'C:\Users\hp\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js'`. This is machine-specific; I documented the session-local workaround in `README.md` and verified with the installed CLI. Docker uses its own working npm installation.
+3. **P3 — Local npm installation.** The normal Windows launcher fails with `Cannot find module 'node_modules/npm/bin/npm-cli.js'`. This is machine-specific; I documented the session-local workaround in `README.md` and verified with the installed CLI. Docker uses its own working npm installation.
 
 I have no unresolved failed product gates or browser/Compose flows. My personal review and submission video remain human follow-up tasks rather than automatically completed claims.
 
 ## Exact morning commands
 
-From `E:\LeadFlow` in PowerShell:
+From `.` in PowerShell:
 
 ```powershell
 Copy-Item .env.example .env

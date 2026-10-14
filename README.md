@@ -1,10 +1,8 @@
 # LeadFlow
 
-I built LeadFlow as a solo Fullstack Intern assessment. I use Next.js App Router, strict TypeScript, Tailwind v4, Express 5, Mongoose 8, and MongoDB 7 to track leads, discussions, and follow-ups.
+I built LeadFlow as a solo Fullstack Intern assessment for tracking leads, discussions and follow-ups. I use Next.js App Router, strict TypeScript, Tailwind v4, Express 5, Mongoose 8 and MongoDB 7. I implemented status filters, search, pinned daily follow-ups, overdue reminders, timeline dialogs, notes, persistent status changes, follow-up clearing, lead creation and a six-lead seed.
 
-## Project status
-
-I implemented all six status filters, name search, pinned today's follow-ups, red overdue reminders, timeline dialogs, notes with optional follow-ups, persistent status changes, follow-up clearing, lead creation, a six-lead seed and Docker Compose.
+![LeadFlow desktop](docs/screenshots/list-1280.png)
 
 ## Docker quick start
 
@@ -34,9 +32,9 @@ I check the API in PowerShell with `Invoke-RestMethod http://localhost:4000/api/
 
 My MongoDB service publishes no host port, and generated names keep an existing `leadflow-mongo` separate from `leadflow-mongo-1`. If 3000/4000 is busy, I change root `.env` values `FRONTEND_PORT`/`PORT`, update `CORS_ORIGINS` and `NEXT_PUBLIC_API_URL` to the new browser URLs, then rebuild. I never use the internal Docker hostname `backend` as the browser API URL.
 
-## Manual setup
+## Manual start
 
-I use Node.js 22.13 or newer within the Node 22 major, npm, and a running MongoDB 7 instance. My local checks used Node 22.21.0. I run these commands from the repository root.
+I use Node.js 22.13 or newer within the Node 22 major, npm and MongoDB 7. My checks used Node 22.21.0. I start from the repository root.
 
 If MongoDB is installed and `mongod` is on PATH, I can start an isolated local instance in a separate terminal:
 
@@ -53,14 +51,6 @@ mongod --dbpath .cache/mongo-data --bind_ip 127.0.0.1 --port 27017
 ```
 
 I then install and start the backend in another terminal:
-
-On my development Windows machine, the default npm launcher points at a missing module. I can bypass that launcher for the current PowerShell session with the installed npm CLI, then run the normal commands below:
-
-```powershell
-function npm { & node 'C:/Program Files/node_modules/npm/bin/npm-cli.js' @args }
-```
-
-I only need this workaround on a machine with that specific installation path and launcher problem; a normal Node.js installation runs the commands directly.
 
 ```powershell
 # Windows PowerShell
@@ -98,7 +88,7 @@ npm ci
 npm run dev
 ```
 
-I open `http://localhost:3000`. I edit `backend/.env` if my database/origin differs and `frontend/.env.local` if my API URL differs. I run npm scripts from each app's directory so its environment file loads correctly. The root `.env.example` supplies Compose interpolation values.
+I open `http://localhost:3000`. I edit `backend/.env` for database/origin changes and `frontend/.env.local` for the API URL. I run scripts from each app's directory to load its environment; root `.env` supplies Compose values.
 
 I check the API with `curl.exe http://localhost:4000/api/health` in PowerShell or `curl http://localhost:4000/api/health` on macOS/Linux. I expect `{ "status": "ok" }`.
 
@@ -167,7 +157,7 @@ $leadBody = @{ name = 'Sarah Connor'; company = 'Acme Corp'; phone = '555-0199' 
 Invoke-RestMethod -Method Post -Uri http://localhost:4000/api/leads -ContentType 'application/json' -Body $leadBody
 ```
 
-I organize the implemented backend as follows:
+I organize the repository as follows:
 
 ```text
 frontend/src/app/          route, layout, Inter, providers, tokens
@@ -200,7 +190,6 @@ docs/codex/               implementation brief
 - I omit authentication as directed by the project brief.
 - I treat all mutation bodies and list query parameters as strict objects, rejecting unknown keys and repeated query values.
 - I accept only name, company, and phone when creating a lead; its initial status is always New.
-- I use the available assignment copy at `reference/06_ASSIGNMENT_REFERENCE.md`; the requested `reference/ASSIGNMENT.md` is absent.
 - I require both local date/time when follow-up is enabled, reject past dates and nonexistent DST-gap times, and use JavaScript's earlier occurrence for ambiguous repeated times.
 - I fall back to All for invalid URL status and cap search at 100 characters. I replace the history entry while typing search and use history entries for filters/dialogs.
 - I use locally bundled Inter through next/font/local so builds do not need Google Fonts.
@@ -222,7 +211,7 @@ npm run lint && npm run typecheck && npm test && npm run build
 npm run format:check
 ```
 
-In PowerShell 5.1 I run each command separately; PowerShell 7 and macOS/Linux support the combined command. My 67 backend and 32 frontend tests cover contracts, persistence, privacy, compensation, seed behavior, DST boundaries, cache movement/rollback, keyboard focus, slow/error states and double submits. Tests use isolated MongoDB 7.0.24 and MSW, not my real database; the initial install/test may download a large binary.
+In PowerShell 5.1 I run each command separately; PowerShell 7 and macOS/Linux support the combined command. My 68 backend and 41 frontend tests cover contracts, persistence, privacy, compensation, timezone-independent seeds, overdue/DST boundaries, request headers, cache movement/rollback, keyboard focus, slow/error states and double submits. Tests use isolated MongoDB 7.0.24 and MSW; the initial run may download a large binary.
 
 With both app dependencies installed, I run optional browser checks from `frontend/`:
 
@@ -232,13 +221,11 @@ npm run test:e2e
 npm run screenshots
 ```
 
-My runner seeds an isolated database, builds both apps, starts only owned servers on free ports and stops them afterwards. The one browser test verifies follow-up movement and status persistence after reload. The screenshot script checks 360/768/1280 layouts, focus trapping, maximum-length text and overdue contrast. I record final results in [the autonomous report](docs/codex/06_AUTONOMOUS_RUN_REPORT.md) and [timestamped log](docs/codex/AUTONOMOUS_RUN_LOG.md).
+My runner seeds an isolated database, builds both apps, starts owned servers on free ports and stops them afterwards. The smoke test verifies follow-up movement and status persistence after reload. Screenshot checks cover 360/768/1280 layouts, focus trapping, maximum-length text, overdue contrast and reachable dialog controls at 360×640 and 320×568. I record results in [the report](docs/codex/06_AUTONOMOUS_RUN_REPORT.md) and [timestamped log](docs/codex/AUTONOMOUS_RUN_LOG.md).
 
 ## Screenshots and demo
 
-![LeadFlow desktop](docs/screenshots/list-1280.png)
-
-I keep [mobile](docs/screenshots/list-360.png), [tablet](docs/screenshots/list-768.png), [add-lead](docs/screenshots/add-lead-dialog.png), [timeline](docs/screenshots/timeline-dialog.png), and [overdue](docs/screenshots/overdue-lead.png) screenshots in `docs/screenshots/`. My submission video remains a placeholder: **[add demo video link here]**.
+I keep [mobile](docs/screenshots/list-360.png), [tablet](docs/screenshots/list-768.png), [add-lead](docs/screenshots/add-lead-dialog.png), [timeline](docs/screenshots/timeline-dialog.png), [long mobile timeline](docs/screenshots/timeline-long-mobile.png), and [overdue](docs/screenshots/overdue-lead.png) screenshots in `docs/screenshots/`. My submission video remains a placeholder: **[add demo video link here]**.
 
 ## AI usage
 

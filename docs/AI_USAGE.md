@@ -22,4 +22,4 @@ Then do Phase 0 and Phase 1 only:
 Run the verification gates from AGENTS.md, then report in the phase report format.
 ```
 
-I keep complete copies of the additional build instructions in [AGENTS.md](../AGENTS.md), [the master prompt](codex/03_CODEX_MASTER_PROMPT.md), and [the implementation plan](codex/01_IMPLEMENTATION_PLAN.md). The requested assignment path was absent, so Codex read the existing `reference/06_ASSIGNMENT_REFERENCE.md` without altering it. My `reference/` directory remains read-only and excluded from Git.
+I keep complete copies of the additional build instructions in [AGENTS.md](../AGENTS.md), [the master prompt](codex/03_CODEX_MASTER_PROMPT.md), and [the implementation plan](codex/01_IMPLEMENTATION_PLAN.md). My `reference/` directory remains read-only and excluded from Git.
