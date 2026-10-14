@@ -28,16 +28,16 @@ export function LeadCard({
       )}
     >
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1 sm:flex sm:items-baseline sm:gap-1">
           <span
-            className="block truncate font-semibold sm:inline"
+            className="block min-w-0 truncate font-semibold"
             title={lead.name}
           >
             {lead.name}
           </span>
           {lead.company && (
             <span
-              className="block truncate text-sm text-slate-600 sm:ml-1 sm:inline"
+              className="block min-w-0 truncate text-sm text-slate-600"
               title={lead.company}
             >
               ({lead.company})

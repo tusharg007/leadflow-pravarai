@@ -112,7 +112,8 @@ async function main() {
       HOSTNAME: '127.0.0.1',
     });
     await Promise.all([waitFor(`${api}/health`), waitFor(url)]);
-    if (process.argv.includes('--screenshots')) await captureScreenshots(url);
+    if (process.argv.includes('--screenshots'))
+      await captureScreenshots(url, api);
     else {
       const result = await run(
         process.execPath,
