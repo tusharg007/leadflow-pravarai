@@ -2,6 +2,14 @@ import { expect, it } from 'vitest';
 import { classify, partition } from '@/features/leads/lib/followUp';
 
 const now = new Date(2026, 9, 14, 12);
+it('runs DST assertions in a timezone with 23- and 25-hour days', () => {
+  expect(new Date(2026, 2, 9).getTime() - new Date(2026, 2, 8).getTime()).toBe(
+    23 * 3600000,
+  );
+  expect(
+    new Date(2026, 10, 2).getTime() - new Date(2026, 10, 1).getTime(),
+  ).toBe(25 * 3600000);
+});
 it('uses local day boundaries at 23:59, 00:00 and exactly now', () => {
   expect(classify(new Date(2026, 9, 13, 23, 59).toISOString(), now)).toBe(
     'overdue',
