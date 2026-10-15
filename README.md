@@ -4,6 +4,8 @@ I built LeadFlow as a solo Fullstack Intern assessment for tracking leads, discu
 
 ![LeadFlow desktop](docs/screenshots/list-1280.png)
 
+I provide a [3:24 annotated feature walkthrough](https://github.com/tusharg007/leadflow-pravarai/releases/tag/walkthrough-2026-10-16) and a [chapter-by-chapter guide](docs/DEMO_WALKTHROUGH.md). The recording shows real browser workflows with explanations embedded in the video.
+
 ## Docker quick start
 
 I use Docker Desktop with Linux containers and Compose v2. From a fresh clone's root, I run:
@@ -211,7 +213,7 @@ npm run lint && npm run typecheck && npm test && npm run build
 npm run format:check
 ```
 
-In PowerShell 5.1 I run each command separately; PowerShell 7 and macOS/Linux support the combined command. My 68 backend and 41 frontend tests cover contracts, persistence, privacy, compensation, timezone-independent seeds, overdue/DST boundaries, request headers, cache movement/rollback, keyboard focus, slow/error states and double submits. Tests use isolated MongoDB 7.0.24 and MSW; the initial run may download a large binary.
+In PowerShell 5.1 I run each command separately; PowerShell 7 and macOS/Linux support the combined command. My 68 backend and 49 frontend tests cover contracts, persistence, privacy, compensation, timezone-independent seeds, overdue/DST boundaries, request headers, cache movement/rollback, keyboard focus, slow/error states and double submits. Tests use isolated MongoDB 7.0.24 and MSW; the initial run may download a large binary.
 
 With both app dependencies installed, I run optional browser checks from `frontend/`:
 

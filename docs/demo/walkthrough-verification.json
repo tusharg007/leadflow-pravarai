@@ -1,0 +1,480 @@
+{
+  "source_commit": "efd43ac4ee7882dfa7f30381e37bc94823d44038",
+  "recorded_at": "2026-10-15T20:25:36.161Z",
+  "video": "docs/demo/leadflow-walkthrough.mp4",
+  "duration_seconds": 204.466341,
+  "size_bytes": 4575883,
+  "resolution": "1600x900",
+  "codec": "H.264 / yuv420p",
+  "fps": 30,
+  "annotations": "Burned into the image in a separate footer; no subtitle file or subtitle stream is required.",
+  "editing": "Chapter trims remove unrecorded setup and transitions. Actions play at 1x; purposeful result-reading holds remain. No blanket speed-up.",
+  "audio": "Silent, annotation-led walkthrough.",
+  "unexpected_browser_errors": [],
+  "runtime": {
+    "uiPort": 3100,
+    "apiPort": 4100
+  },
+  "gates": {
+    "backend_tests": 68,
+    "frontend_tests": 49,
+    "lint": "pass",
+    "typecheck": "pass",
+    "build": "pass",
+    "format": "pass"
+  },
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "LeadFlow — the complete lead workflow",
+      "caption": "A real Next.js client, Express API and isolated MongoDB. Every interaction in this walkthrough is verified.",
+      "start_seconds": 0,
+      "end_seconds": 4.5,
+      "source": "desktop.webm",
+      "source_start_seconds": 0.38,
+      "source_end_seconds": 4.909,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 2,
+      "title": "Prioritize today; keep the rest in order",
+      "caption": "Today is pinned once. Older open follow-ups are red; future follow-ups are neutral. Won/Lost cards are dimmed.",
+      "start_seconds": 4.5,
+      "end_seconds": 10.067,
+      "source": "desktop.webm",
+      "source_start_seconds": 5.011,
+      "source_end_seconds": 10.589,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 3,
+      "title": "All six status filters",
+      "caption": "New, Contacted, Qualified, Proposal Sent, Won and Lost filter both sections. The selected status is stored in the URL.",
+      "start_seconds": 10.067,
+      "end_seconds": 20.1,
+      "source": "desktop.webm",
+      "source_start_seconds": 10.672,
+      "source_end_seconds": 20.691,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 4,
+      "title": "Search case-insensitively",
+      "caption": "Typing sArAh finds Sarah Connor. Search is debounced and shares URL state with the active filter.",
+      "start_seconds": 20.1,
+      "end_seconds": 23.9,
+      "source": "desktop.webm",
+      "source_start_seconds": 20.776,
+      "source_end_seconds": 24.603,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 5,
+      "title": "Combine filters and search",
+      "caption": "The same query under Qualified has no match; switching to Proposal Sent brings Sarah back without navigation.",
+      "start_seconds": 23.9,
+      "end_seconds": 28.833,
+      "source": "desktop.webm",
+      "source_start_seconds": 24.69,
+      "source_end_seconds": 29.637,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 6,
+      "title": "Literal search and a clear empty state",
+      "caption": "Regex punctuation is treated as text. A query containing ( returns no matches safely; clearing it restores the list.",
+      "start_seconds": 28.833,
+      "end_seconds": 34.867,
+      "source": "desktop.webm",
+      "source_start_seconds": 29.714,
+      "source_end_seconds": 35.729,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 7,
+      "title": "Open the full discussion timeline",
+      "caption": "Company and phone stay with the lead. History is newest first, with absolute timestamps and italic system entries.",
+      "start_seconds": 34.867,
+      "end_seconds": 40.967,
+      "source": "desktop.webm",
+      "source_start_seconds": 35.825,
+      "source_end_seconds": 41.9,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 8,
+      "title": "Save a discussion without changing the reminder",
+      "caption": "A note-only save updates the newest history entry and card summary immediately. The existing follow-up is preserved.",
+      "start_seconds": 40.967,
+      "end_seconds": 49.433,
+      "source": "desktop.webm",
+      "source_start_seconds": 42.171,
+      "source_end_seconds": 50.662,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 9,
+      "title": "Schedule a follow-up from a discussion",
+      "caption": "Diana starts in All leads. Adding a note with a local date and time updates her reminder and history in one save.",
+      "start_seconds": 49.433,
+      "end_seconds": 58.5,
+      "source": "desktop.webm",
+      "source_start_seconds": 50.774,
+      "source_end_seconds": 59.845,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 10,
+      "title": "The lead moves into Today immediately",
+      "caption": "No reload is needed. TanStack Query updates the detail and all matching list caches after the API responds.",
+      "start_seconds": 58.5,
+      "end_seconds": 62.533,
+      "source": "desktop.webm",
+      "source_start_seconds": 60.198,
+      "source_end_seconds": 64.236,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 11,
+      "title": "Earlier today is overdue — and still pinned",
+      "caption": "A reminder five minutes ago turns red. Calendar-day membership and elapsed-time overdue styling are separate rules.",
+      "start_seconds": 62.533,
+      "end_seconds": 71.833,
+      "source": "desktop.webm",
+      "source_start_seconds": 64.331,
+      "source_end_seconds": 73.65,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 12,
+      "title": "Close a lead without showing a false alarm",
+      "caption": "Lost leads use a neutral absolute-time chip. Diana stays pinned because her reminder is still on today’s calendar day.",
+      "start_seconds": 71.833,
+      "end_seconds": 78.833,
+      "source": "desktop.webm",
+      "source_start_seconds": 73.745,
+      "source_end_seconds": 80.724,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 13,
+      "title": "Status and history persist after reload",
+      "caption": "Reloading reads the saved Lost status from MongoDB. Reopening the lead as Qualified restores its red past-due chip.",
+      "start_seconds": 78.833,
+      "end_seconds": 86.166,
+      "source": "desktop.webm",
+      "source_start_seconds": 80.826,
+      "source_end_seconds": 88.147,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 14,
+      "title": "Clear the reminder; keep the discussion history",
+      "caption": "Clear follow-up sends an explicit null. The lead moves out of Today, while its existing notes remain available.",
+      "start_seconds": 86.166,
+      "end_seconds": 91.566,
+      "source": "desktop.webm",
+      "source_start_seconds": 88.409,
+      "source_end_seconds": 93.818,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 15,
+      "title": "Won leads are neutral too",
+      "caption": "Bill’s old reminder is red while Contacted, neutral while Won, and red again when reopened. The saved date is unchanged.",
+      "start_seconds": 91.566,
+      "end_seconds": 101.833,
+      "source": "desktop.webm",
+      "source_start_seconds": 93.919,
+      "source_end_seconds": 104.175,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 16,
+      "title": "Create a lead — required fields are guarded",
+      "caption": "This is an intentional validation case: a blank name is rejected in the form before any creation request is sent.",
+      "start_seconds": 101.833,
+      "end_seconds": 107.466,
+      "source": "desktop.webm",
+      "source_start_seconds": 104.274,
+      "source_end_seconds": 109.9,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 17,
+      "title": "Add a complete contact",
+      "caption": "Maya Patel is created as New with optional company and phone. The new card appears immediately with a system-created history entry.",
+      "start_seconds": 107.466,
+      "end_seconds": 118.033,
+      "source": "desktop.webm",
+      "source_start_seconds": 110.16,
+      "source_end_seconds": 120.717,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 18,
+      "title": "Date and time are required together",
+      "caption": "Enabling a follow-up without choosing its date and time shows labelled field errors. The note remains available to correct.",
+      "start_seconds": 118.033,
+      "end_seconds": 125.866,
+      "source": "desktop.webm",
+      "source_start_seconds": 120.969,
+      "source_end_seconds": 128.804,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 19,
+      "title": "Correct the form and save a future reminder",
+      "caption": "Choosing tomorrow completes the same note. Future reminders use the neutral absolute-time chip and stay in All leads.",
+      "start_seconds": 125.866,
+      "end_seconds": 130.466,
+      "source": "desktop.webm",
+      "source_start_seconds": 129.15,
+      "source_end_seconds": 133.726,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 20,
+      "title": "Optional contact details stay optional",
+      "caption": "A second case uses only a name. Noah Kim is still created as New; blank company and phone are normalized to null.",
+      "start_seconds": 130.466,
+      "end_seconds": 137.7,
+      "source": "desktop.webm",
+      "source_start_seconds": 133.848,
+      "source_end_seconds": 141.091,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 21,
+      "title": "Shareable URL state and a persistent dialog",
+      "caption": "Filter, search and open lead ID are represented in the URL. Reloading the page restores the selected timeline.",
+      "start_seconds": 137.7,
+      "end_seconds": 143.133,
+      "source": "desktop.webm",
+      "source_start_seconds": 141.217,
+      "source_end_seconds": 146.668,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 22,
+      "title": "Keyboard-friendly dialogs",
+      "caption": "Escape closes the dialog and returns focus. Tab stays inside the Add Lead dialog, with visible focus treatment.",
+      "start_seconds": 143.133,
+      "end_seconds": 148.133,
+      "source": "desktop.webm",
+      "source_start_seconds": 146.914,
+      "source_end_seconds": 151.899,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 23,
+      "title": "Loading states on a slower connection",
+      "caption": "Only delivery is delayed in this controlled test. The real API response replaces the skeleton once the request completes.",
+      "start_seconds": 148.133,
+      "end_seconds": 153.666,
+      "source": "desktop.webm",
+      "source_start_seconds": 151.989,
+      "source_end_seconds": 157.507,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 24,
+      "title": "Retry recovers from a network interruption",
+      "caption": "An intentional browser-network interruption shows Retry. Clicking it restores the real list; the API stays healthy.",
+      "start_seconds": 153.666,
+      "end_seconds": 160.566,
+      "source": "desktop.webm",
+      "source_start_seconds": 157.597,
+      "source_end_seconds": 164.489,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 25,
+      "title": "Browser timezone: America/Los_Angeles",
+      "caption": "The visible browser uses this timezone. Stored UTC timestamps are unchanged; section membership follows the local calendar day.",
+      "start_seconds": 160.566,
+      "end_seconds": 164.733,
+      "source": "timezone-los-angeles.webm",
+      "source_start_seconds": 0.109,
+      "source_end_seconds": 4.28,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 26,
+      "title": "Browser timezone: Pacific/Auckland",
+      "caption": "The visible browser uses this timezone. Stored UTC timestamps are unchanged; section membership follows the local calendar day.",
+      "start_seconds": 164.733,
+      "end_seconds": 168.833,
+      "source": "timezone-auckland.webm",
+      "source_start_seconds": 0.091,
+      "source_end_seconds": 4.24,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 27,
+      "title": "The API contract is verified too",
+      "caption": "These are captured responses, not mock data. Invalid input gets a structured envelope; valid requests keep their documented shapes.",
+      "start_seconds": 168.833,
+      "end_seconds": 174.866,
+      "source": "desktop.webm",
+      "source_start_seconds": 174.576,
+      "source_end_seconds": 180.627,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 28,
+      "title": "A responsive single-screen workflow",
+      "caption": "At 360×640, search remains full width and filters scroll horizontally. The same live data and timeline work on a phone.",
+      "start_seconds": 174.866,
+      "end_seconds": 179.633,
+      "source": "mobile.webm",
+      "source_start_seconds": 0.347,
+      "source_end_seconds": 5.092,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 29,
+      "title": "Long names and notes do not hide the form",
+      "caption": "A real 120-character name/company and 5,000-character note exercise the limit. The title clamps, while the full text stays in the DOM.",
+      "start_seconds": 179.633,
+      "end_seconds": 183.833,
+      "source": "mobile.webm",
+      "source_start_seconds": 5.193,
+      "source_end_seconds": 9.378,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 30,
+      "title": "The footer stays reachable on small screens",
+      "caption": "Date, time and Save Note each fit inside the dialog after scrolling. The same bounds checks also pass at 320×568.",
+      "start_seconds": 183.833,
+      "end_seconds": 193.133,
+      "source": "mobile.webm",
+      "source_start_seconds": 9.444,
+      "source_end_seconds": 18.765,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 31,
+      "title": "A clean empty instance is ready to use",
+      "caption": "This final scene uses the disposable demo database only. An empty list clearly invites the first lead, with the Add action still available.",
+      "start_seconds": 193.133,
+      "end_seconds": 197.966,
+      "source": "ending.webm",
+      "source_start_seconds": 0.799,
+      "source_end_seconds": 5.605,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 32,
+      "title": "Verified architecture and delivery",
+      "caption": "Typed client → Express validation/services → MongoDB. Local timestamps, cache updates, persistence, accessibility and responsive bounds are checked.",
+      "start_seconds": 197.966,
+      "end_seconds": 204.466,
+      "source": "ending.webm",
+      "source_start_seconds": 5.605,
+      "source_end_seconds": 12.125,
+      "playback_speed": 1
+    }
+  ],
+  "intentional_scenarios": "Intentional UI validation, delayed delivery and a controlled browser-network interruption are explicitly labelled. API result cards are populated from actual captured responses. Empty-state chapter clears only the isolated temporary database.",
+  "api_checks": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "body": {
+        "status": "ok"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/leads?status=new&q=maya",
+      "status": 200,
+      "body": [
+        {
+          "id": "6ad1365cfc2c4e353571bf45",
+          "name": "Maya Patel",
+          "company": "Northstar Labs",
+          "phone": "+1 555 0148",
+          "status": "new",
+          "followUpAt": "2026-10-16T20:54:00.000Z",
+          "lastNote": "Send the onboarding checklist tomorrow.",
+          "lastDiscussionAt": "2026-10-15T20:24:09.750Z",
+          "createdAt": "2026-10-15T20:23:56.312Z",
+          "updatedAt": "2026-10-15T20:24:09.753Z"
+        }
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/leads?status=unknown",
+      "status": 400,
+      "body": {
+        "error": {
+          "code": "validation_error",
+          "message": "Request validation failed",
+          "details": [
+            {
+              "field": "status",
+              "message": "Invalid option: expected one of \"new\"|\"contacted\"|\"qualified\"|\"proposal_sent\"|\"won\"|\"lost\""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/leads/not-an-id",
+      "status": 400,
+      "body": {
+        "error": {
+          "code": "validation_error",
+          "message": "Request validation failed",
+          "details": [
+            {
+              "field": "id",
+              "message": "Invalid lead ID"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/does-not-exist",
+      "status": 404,
+      "body": {
+        "error": {
+          "code": "not_found",
+          "message": "Route not found"
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/leads",
+      "status": 400,
+      "body": {
+        "error": {
+          "code": "validation_error",
+          "message": "Request validation failed",
+          "details": [
+            {
+              "field": "name",
+              "message": "Name is required"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "sha256": "4ef82cdb5a988324cf0f9429bc10ea8269228b97b3dbd45312a02fae8b50edfe",
+  "quality_checks": {
+    "full_decode": "pass",
+    "burned_in_annotations": "pass",
+    "subtitle_streams": 0,
+    "playback_speed": "1x; chapter trims only",
+    "frozen_intervals_at_least_8_seconds": 0
+  }
+}

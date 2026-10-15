@@ -141,3 +141,9 @@ I validated `docker compose -p leadflow config --quiet`; I did not repeat the ea
 I made Won/Lost follow-up chips neutral in cards and timeline dialogs, with the absolute-time label and unchanged pinned-section membership. I added closed/open regression tests and sanitized the npm installation path and assignment-copy mentions in the phase reports. I preserved `README.md` and `docs/AI_USAGE.md` byte for byte.
 
 I ran frontend `lint`, `typecheck`, `test`, `build` and `format:check` after each item: all passed, with 47 tests across 8 files on both runs.
+
+## Recorded walkthrough — October 16, 2026
+
+I recorded the [3:24 annotated walkthrough](../DEMO_WALKTHROUGH.md) from application commit `efd43ac`. Video review found a cached-clock issue that could briefly describe new discussions as future time; I corrected it with two regression tests before the final take.
+
+I reran both apps' lint, typecheck, test, build and format gates: all passed, with 68 backend tests and 49 frontend tests. The completed rehearsal and recording each passed 32 chapters with zero unexpected browser errors. I encoded the final video as H.264 with burned-in annotations and normal-speed chapter cuts, and stopped all owned test processes. I publish the requested MP4 as a release asset in the private repository at the configured GitHub origin. Automatic approval review rejected uploading the full application source/history; those commits and the poster/verification evidence remain local.
