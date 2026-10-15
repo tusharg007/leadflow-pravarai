@@ -1,55 +1,69 @@
 # LeadFlow Docker quick-check video
 
-I recorded all six requested checks on October 16, 2026, against production Docker images built from application commit `3b5f908`. I used automated Chromium interactions against the real frontend, Express API and MongoDB; I did not mock API responses or change application code.
+I regenerated this video on October 16, 2026, from HEAD `91bc269`. I changed only the presentation and its evidence files, with no application code changes. I used automated Chromium interactions against production Docker images and a real isolated MongoDB instance.
 
-[![Watch my Docker quick check](demo/docker-quick-check-poster.jpg)](https://github.com/tusharg007/leadflow-pravarai/releases/download/walkthrough-2026-10-16/docker-quick-check.mp4)
+[![Watch my regenerated Docker quick check](demo/docker-quick-check-poster.jpg)](demo/docker-quick-check.mp4)
 
-I provide the [GitHub MP4](https://github.com/tusharg007/leadflow-pravarai/releases/download/walkthrough-2026-10-16/docker-quick-check.mp4) and the [local MP4](demo/docker-quick-check.mp4). The video is **59.3 seconds**, **1600×900**, **30 fps**, H.264 and silent, with annotations burned into the frames. I trim setup and transitions, retain interactions at normal speed, and require no subtitle file. The GitHub repository is private, so its owner/account access is required.
+I provide the [current local MP4](demo/docker-quick-check.mp4): **72.6 seconds**, **1600×900**, **30 fps**, H.264 and silent. I burn annotations into the frames, retain interactions at normal speed and trim setup and unrecorded transitions. I require no subtitle file. The earlier GitHub release asset predates this regenerated local revision.
+
+## Presentation corrections
+
+I give each of the six checks its own CHECK intro card and green-accented PASS result card over the live app. For check 3, I use separate 3a and 3b cards for empty-name rejection and name-only creation. I show Diana's Contacted badge before a full reload, the reload itself, and the same badge on an explicit AFTER F5 / PASS card. I limit the mobile sidebar to controls reachable and no horizontal overflow, then end with the six-line summary.
 
 ## Results
 
 - PASS — A note with a follow-up later today pins the lead without a reload.
 - PASS — A status change survives a full browser reload (F5 equivalent).
 - PASS — Add Lead rejects an empty name; a name-only lead appears as New.
-- PASS — Bill marked Won uses a grey card and neutral follow-up chip, with no red Overdue label.
-- PASS — At 360×640, date, time and Save Note fit inside the dialog; there is no horizontal overflow.
-- PASS — Esc closes the dialog, clears the lead URL parameter and returns focus to its card.
+- PASS — Bill marked Won uses a grey card and neutral follow-up chip.
+- PASS — At 360×640, date, time and Save Note are reachable with no horizontal overflow.
+- PASS — Esc closes the dialog and returns focus to Diana.
 
 ## Video timings
 
-| Time | Check                                          |
-| ---- | ---------------------------------------------- |
-| 0:00 | Docker quick check — six requested behaviours  |
-| 0:03 | 1 / 6 — Add a note and a follow-up later today |
-| 0:10 | PASS — Pinned immediately, with no reload      |
-| 0:14 | 2 / 6 — Change status, then refresh (F5)       |
-| 0:21 | 3 / 6 — Empty names are rejected               |
-| 0:25 | PASS — A name alone creates a New lead         |
-| 0:31 | 4 / 6 — Bill starts red while open             |
-| 0:36 | PASS — Won is grey, never red                  |
-| 0:40 | 5 / 6 — A real 360 × 640 viewport              |
-| 0:44 | PASS — Date, time and Save Note stay reachable |
-| 0:50 | 6 / 6 — Escape closes the dialog               |
-| 0:53 | All six checks passed on the Docker build      |
+| Time | Card or action                                  |
+| ---- | ----------------------------------------------- |
+| 0:00 | Docker quick check — six requested behaviours   |
+| 0:03 | CHECK 1 / 6 — Note + follow-up later today      |
+| 0:10 | PASS 1 / 6 — Pinned immediately, no reload      |
+| 0:14 | CHECK 2 / 6 — Status survives F5                |
+| 0:19 | BEFORE F5 — Diana: Contacted                    |
+| 0:22 | F5 — Full browser reload                        |
+| 0:23 | PASS 2 / 6 — AFTER F5: Diana is still Contacted |
+| 0:27 | CHECK 3a / 6 — Reject an empty name             |
+| 0:29 | PASS 3a / 6 — Empty name rejected               |
+| 0:33 | CHECK 3b / 6 — Create with a name only          |
+| 0:36 | PASS 3b / 6 — Name-only lead appears as New     |
+| 0:40 | CHECK 4 / 6 — Won must be neutral               |
+| 0:45 | PASS 4 / 6 — Bill is Won, grey, never red       |
+| 0:50 | CHECK 5 / 6 — Controls at 360 × 640             |
+| 0:53 | PASS 5 / 6 — Controls reachable; no overflow    |
+| 1:01 | CHECK 6 / 6 — Esc closes the dialog             |
+| 1:03 | PASS 6 / 6 — Esc closed the dialog              |
+| 1:07 | All six checks passed on the Docker build       |
 
-## How I checked
+## Visible F5 evidence
 
-I first rehearse all six checks, then reset only my dedicated test database and record a successful take. Both runs pass. I observe 21 successful browser API responses in the final take and zero unexpected browser errors or failed HTTP responses. Empty-name validation is an expected inline result and sends no create request.
+I hold Diana's actual Contacted badge on screen before the reload and again afterward. I verify that the document identifier changes and the API record remains Contacted.
 
-I prove that pinning occurs without a reload by comparing a document identifier before and after saving. I prove reload persistence by checking that the document identifier changes after a full reload while the selected status and API record remain Contacted. I check that Bill retains his original past reminder while both his timeline and card use neutral styling after Won.
+![Diana before F5](demo/docker-quick-check-f5-before.png)
 
-I stress the mobile dialog with a 120-character unbroken name, a 120-character unbroken company, a long phone number and a long note. I scroll each control into view, assert full viewport visibility and containment inside the dialog bounding box, check `document.documentElement.scrollWidth <= innerWidth`, then successfully save a note from that view.
+![Diana after F5](demo/docker-quick-check-f5-after.png)
+
+## Mobile scope
+
+I use a real 360×640 viewport with a 120-character unbroken name and company. I scroll date, time and Save Note into view, assert full viewport visibility and containment inside the dialog, check `document.documentElement.scrollWidth <= innerWidth`, and save a note successfully. I make no claim in this clip about responsive filter interactions or testing the full discussion history.
 
 ![My 360px controls check](demo/docker-quick-check-mobile-360.png)
 
-## Docker isolation and cleanup
+## Verification and isolation
 
-I use `docker compose -p leadflow` with dedicated `quickcheck-mongo`, `quickcheck-backend` and `quickcheck-frontend` services. I build through the repository Dockerfiles, use the same production setup as the main compose file, and keep the shared network external. I use frontend port 3100 and API port 4100 because the existing Docker app occupies 3000/4000. MongoDB publishes no host port.
+I pass all six checks in rehearsal and in the recorded take, observing 21 successful browser API responses and no unexpected browser errors or failed HTTP responses. I verify seven CHECK/PASS pairs because the third check has two separate cases. I decode the complete video, inspect the result frames, and detect no frozen intervals of eight seconds or longer.
 
-I seed using `npm run seed:prod -- --reset` inside my dedicated backend container. I change only the test database. After recording, I remove only the three containers and named data volume created for this check. I verify that the three original Docker containers retain their IDs and remain healthy; I leave their data, volumes and network intact.
+I use a separate `leadflow-video` Compose project, built through the unchanged repository Dockerfiles. I use frontend port 3100 and API port 4100. MongoDB uses temporary in-memory storage and publishes no host port. I seed only this isolated database, then shut down only this isolated project, without any volume-removal command.
 
-I check the completed MP4 by decoding every frame and inspecting representative result frames. I detect no frozen intervals of eight seconds or longer. I verify that the uploaded GitHub asset SHA-256 matches the local video. I keep raw takes and temporary annotations under ignored `.cache/`.
+I verify that the original `leadflow` project retains its container IDs and identical lead/discussion data. I do not run destructive commands against its volume. I keep recording helpers and raw takes under ignored `.cache/`.
 
-I distinguish this automated browser check from a human personal review. I change no application code for this recording, so I do not repeat the unchanged unit-test gates.
+I distinguish this automated browser recording from a human personal review. I do not rerun the unchanged application unit-test gates for this presentation-only change.
 
-I retain the [assertions, Docker image identities, API response statuses, cleanup and video verification](demo/docker-quick-check-verification.json). Video SHA-256: `11e55f0c2d2dade0553b5dde17cf2b557fa45ace91cab44d4a2b70d5ba421002`.
+I retain the [check results, presentation inventory, Docker provenance and cleanup verification](demo/docker-quick-check-verification.json). Video SHA-256: `c96b64dafdc95305f7aee7ddf58cd8c46adcc67a779f855d95a75bc41ff06036`.
