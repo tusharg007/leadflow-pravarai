@@ -1,0 +1,469 @@
+{
+  "source_commit": "3b5f9085443a9380903ba245a6b6841cf7e914a2",
+  "recorded_at": "2026-10-15T21:10:47.161Z",
+  "video": "docs/demo/docker-quick-check.mp4",
+  "duration_seconds": 59.333333,
+  "size_bytes": 1462967,
+  "resolution": "1600x900",
+  "codec": "H.264 / yuv420p",
+  "fps": 30,
+  "annotations": "Burned into the image in a separate footer; no subtitle file or subtitle stream is required.",
+  "editing": "Chapter trims remove unrecorded setup and transitions. Actions play at 1x; purposeful result-reading holds remain. No blanket speed-up.",
+  "audio": "Silent, annotation-led walkthrough.",
+  "unexpected_browser_errors": [],
+  "runtime": {
+    "kind": "Docker Compose production images",
+    "project": "leadflow",
+    "url": "http://localhost:3100",
+    "api": "http://localhost:4100/api",
+    "containers": [
+      {
+        "name": "leadflow-quickcheck-backend-1",
+        "health": "healthy",
+        "image": "leadflow-quickcheck-backend:3b5f908",
+        "id": "68847402d72e"
+      },
+      {
+        "name": "leadflow-quickcheck-frontend-1",
+        "health": "healthy",
+        "image": "leadflow-quickcheck-frontend:3b5f908",
+        "id": "cdaf8a4f8f1f"
+      },
+      {
+        "name": "leadflow-quickcheck-mongo-1",
+        "health": "healthy",
+        "image": "mongo:7",
+        "id": "a1dde7c62e06"
+      }
+    ],
+    "temporaryInstance": true,
+    "existingAppUnchanged": true
+  },
+  "results": [
+    {
+      "check": "A note with a follow-up later today pins the lead without a reload",
+      "result": "pass",
+      "evidence": {
+        "lead": "Diana Prince",
+        "followUpAt": "2026-10-15T21:54:00.000Z",
+        "documentUnchanged": true,
+        "apiStatus": 201
+      }
+    },
+    {
+      "check": "A status change survives F5",
+      "result": "pass",
+      "evidence": {
+        "lead": "Diana Prince",
+        "status": "contacted",
+        "documentChanged": true,
+        "reloadedDialog": "Contacted"
+      }
+    },
+    {
+      "check": "Add Lead rejects an empty name and creates a name-only lead as New",
+      "result": "pass",
+      "evidence": {
+        "validationMessage": "Full name is required",
+        "invalidCreateRequestSent": false,
+        "created": {
+          "name": "Docker Review Lead",
+          "status": "new",
+          "company": null,
+          "phone": null
+        },
+        "apiStatus": 201
+      }
+    },
+    {
+      "check": "Bill marked Won turns grey, not red",
+      "result": "pass",
+      "evidence": {
+        "status": "won",
+        "pastReminderPreserved": true,
+        "cardClass": "w-full rounded-lg border p-4 text-left shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 sm:p-5 border-line hover:border-slate-300 bg-slate-50 text-slate-600",
+        "chipClass": "inline-flex max-w-full items-center gap-1.5 rounded px-2 py-1 text-xs font-medium bg-slate-100 text-slate-700",
+        "label": "Follow-up: Oct 15, 2026, 12:39 AM",
+        "timelineNeutral": true
+      }
+    },
+    {
+      "check": "Esc closes a dialog",
+      "result": "pass",
+      "evidence": {
+        "remainingDialogs": 0,
+        "leadUrlParameterCleared": true,
+        "focusReturnedTo": "View Diana Prince"
+      }
+    },
+    {
+      "check": "A 360px window shows no clipped controls",
+      "result": "pass",
+      "evidence": {
+        "viewport": {
+          "width": 360,
+          "height": 640
+        },
+        "nameLength": 120,
+        "companyLength": 120,
+        "noHorizontalOverflow": true,
+        "controls": [
+          {
+            "control": "Follow-up date",
+            "bounds": {
+              "x": 32,
+              "y": 568,
+              "width": 142,
+              "height": 40
+            },
+            "dialog": {
+              "x": 16,
+              "y": 32,
+              "width": 328,
+              "height": 576
+            }
+          },
+          {
+            "control": "Follow-up time",
+            "bounds": {
+              "x": 186,
+              "y": 568,
+              "width": 142,
+              "height": 40
+            },
+            "dialog": {
+              "x": 16,
+              "y": 32,
+              "width": 328,
+              "height": 576
+            }
+          },
+          {
+            "control": "Save Note",
+            "bounds": {
+              "x": 223.8125,
+              "y": 490,
+              "width": 104.1875,
+              "height": 40
+            },
+            "dialog": {
+              "x": 16,
+              "y": 32,
+              "width": 328,
+              "height": 576
+            }
+          }
+        ],
+        "actualMobileNoteSave": 201
+      }
+    }
+  ],
+  "failed_http_responses": [],
+  "chapters": [
+    {
+      "chapter": 1,
+      "title": "Docker quick check — six requested behaviours",
+      "caption": "Current source, production Docker images and real MongoDB. Automated Chromium interactions; no mocked API responses.",
+      "start_seconds": 0.0,
+      "end_seconds": 3.5,
+      "source": "desktop.webm",
+      "source_start_seconds": 0.48459399999999914,
+      "source_end_seconds": 4.01,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 2,
+      "title": "1 / 6 — Add a note and a follow-up later today",
+      "caption": "Diana starts in All leads. I enter a discussion and a date/time later today, then save through the live API.",
+      "start_seconds": 3.5,
+      "end_seconds": 10.8,
+      "source": "desktop.webm",
+      "source_start_seconds": 4.091054700000001,
+      "source_end_seconds": 11.417,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 3,
+      "title": "PASS — Pinned immediately, with no reload",
+      "caption": "Closing the dialog reveals Diana in Today's follow-ups. The browser document stayed the same throughout the save.",
+      "start_seconds": 10.8,
+      "end_seconds": 14.9,
+      "source": "desktop.webm",
+      "source_start_seconds": 11.575024099999998,
+      "source_end_seconds": 15.681,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 4,
+      "title": "2 / 6 — Change status, then refresh (F5)",
+      "caption": "I change Diana to Contacted, wait for PATCH 200, then perform a full browser reload.",
+      "start_seconds": 14.9,
+      "end_seconds": 21.4,
+      "source": "desktop.webm",
+      "source_start_seconds": 15.747078399999998,
+      "source_end_seconds": 22.215,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 5,
+      "title": "3 / 6 — Empty names are rejected",
+      "caption": "I submit the blank Add Lead form. The inline error appears, focus returns to the name, and no create request is sent.",
+      "start_seconds": 21.4,
+      "end_seconds": 25.467,
+      "source": "desktop.webm",
+      "source_start_seconds": 23.0231257,
+      "source_end_seconds": 27.12,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 6,
+      "title": "PASS — A name alone creates a New lead",
+      "caption": "Company and phone remain empty. The successful create returns 201 and the new card appears immediately with the New badge.",
+      "start_seconds": 25.467,
+      "end_seconds": 31.033,
+      "source": "desktop.webm",
+      "source_start_seconds": 27.3078924,
+      "source_end_seconds": 32.857,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 7,
+      "title": "4 / 6 — Bill starts red while open",
+      "caption": "The seeded Bill has a past follow-up. I confirm the red Overdue chip, then mark the lead Won.",
+      "start_seconds": 31.033,
+      "end_seconds": 36.467,
+      "source": "desktop.webm",
+      "source_start_seconds": 32.9124942,
+      "source_end_seconds": 38.313,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 8,
+      "title": "PASS — Won is grey, never red",
+      "caption": "Both the timeline and the card use a neutral Follow-up label. The original past reminder is preserved; the persisted status is Won.",
+      "start_seconds": 36.467,
+      "end_seconds": 40.667,
+      "source": "desktop.webm",
+      "source_start_seconds": 38.474538100000004,
+      "source_end_seconds": 42.66,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 9,
+      "title": "5 / 6 — A real 360 × 640 viewport",
+      "caption": "I open a stress-test lead with a 120-character unbroken name and company. The title clamps and the page has no horizontal overflow.",
+      "start_seconds": 40.667,
+      "end_seconds": 44.033,
+      "source": "mobile.webm",
+      "source_start_seconds": 0.11161649999999645,
+      "source_end_seconds": 3.448,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 10,
+      "title": "PASS — Date, time and Save Note stay reachable",
+      "caption": "I scroll inside the dialog, verify all three controls fit inside its bounds, and submit a note successfully from the 360px view.",
+      "start_seconds": 44.033,
+      "end_seconds": 50.333,
+      "source": "mobile.webm",
+      "source_start_seconds": 3.495931199999999,
+      "source_end_seconds": 9.797,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 11,
+      "title": "6 / 6 — Escape closes the dialog",
+      "caption": "I open Diana, press Esc, and verify that the dialog closes, its URL parameter clears, and focus returns to the lead card.",
+      "start_seconds": 50.333,
+      "end_seconds": 53.933,
+      "source": "desktop.webm",
+      "source_start_seconds": 42.706739199999994,
+      "source_end_seconds": 46.32,
+      "playback_speed": 1
+    },
+    {
+      "chapter": 12,
+      "title": "All six checks passed on the Docker build",
+      "caption": "The pass list comes from assertions and real API responses. I keep this automated review distinct from a human personal review.",
+      "start_seconds": 53.933,
+      "end_seconds": 59.333,
+      "source": "ending.webm",
+      "source_start_seconds": 0.06964470000000438,
+      "source_end_seconds": 5.48,
+      "playback_speed": 1
+    }
+  ],
+  "intentional_scenarios": "Only a dedicated Docker test database is reset between rehearsal and recording. Validation is an intentional expected result. App interactions are automated, not a human personal review.",
+  "api_checks": [
+    {
+      "method": "GET",
+      "path": "/api/leads",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads/6c656164666c6f7700000005",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/leads/6c656164666c6f7700000005/discussions",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads/6c656164666c6f7700000005",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/leads/6c656164666c6f7700000005",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads/6c656164666c6f7700000005",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads/6c656164666c6f7700000005",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/leads",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads/6c656164666c6f7700000003",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/leads/6c656164666c6f7700000003",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads/6c656164666c6f7700000003",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads/6ad14146fda1f9ee49062478",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/leads/6ad14146fda1f9ee49062478/discussions",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/leads/6ad14146fda1f9ee49062478",
+      "status": 200
+    }
+  ],
+  "sha256": "11e55f0c2d2dade0553b5dde17cf2b557fa45ace91cab44d4a2b70d5ba421002",
+  "published_video": "https://github.com/tusharg007/leadflow-pravarai/releases/download/walkthrough-2026-10-16/docker-quick-check.mp4",
+  "published_asset_digest_matches": true,
+  "docker_image_identities": [
+    {
+      "container": "leadflow-quickcheck-mongo-1",
+      "image_digest": "sha256:1f995ad6fdb93244a1addab1b58f934a0bc2f5643c38e02f5e9d7f0c7d227a7b",
+      "restarts": 0,
+      "health": "healthy"
+    },
+    {
+      "container": "leadflow-quickcheck-backend-1",
+      "image_digest": "sha256:74def8708683467a3e5d88465236fb3c44048c71b6028d065a7ac8b6ec70285e",
+      "restarts": 0,
+      "health": "healthy"
+    },
+    {
+      "container": "leadflow-quickcheck-frontend-1",
+      "image_digest": "sha256:5a16ec30ca71be3b42d96d86a4bb7106d4abaf6660d1024bca7ebb85e01602e5",
+      "restarts": 0,
+      "health": "healthy"
+    }
+  ],
+  "rehearsal": {
+    "result": "pass",
+    "checks": 6,
+    "unexpected_browser_errors": []
+  },
+  "video_quality": {
+    "full_decode": "pass",
+    "freeze_check_threshold_seconds": 8,
+    "frozen_intervals_detected": 0,
+    "visual_inspection": [
+      "pinning",
+      "status after reload",
+      "empty-name validation",
+      "Bill Won neutral",
+      "360px controls",
+      "summary"
+    ],
+    "sidecar_subtitles_required": false
+  },
+  "cleanup": {
+    "sharedNetworkRemoved": false,
+    "testContainersRemoved": true,
+    "originalContainers": [
+      {
+        "name": "leadflow-frontend-1",
+        "id": "18261b8730d4",
+        "health": "healthy"
+      },
+      {
+        "name": "leadflow-backend-1",
+        "id": "329f5ad33de3",
+        "health": "healthy"
+      },
+      {
+        "name": "leadflow-mongo-1",
+        "id": "667331335f4b",
+        "health": "healthy"
+      }
+    ],
+    "testVolumeRemoved": true
+  },
+  "scope": "I changed no application code. I built production Docker images from the recorded commit and checked six behaviours through the real UI and API. I did not repeat the unchanged application unit-test gates for this media-only change."
+}

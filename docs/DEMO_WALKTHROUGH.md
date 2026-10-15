@@ -1,5 +1,7 @@
 # LeadFlow annotated walkthrough
 
+I also provide a [focused Docker quick-check video covering the six requested review checks](DOCKER_QUICK_CHECK.md).
+
 I recorded this walkthrough on October 16, 2026, from application commit `efd43ac`. I used automated Chromium interactions against the real compiled Next.js client, Express API and an isolated MongoDB 7 instance. I did not change product code for the recording or use production/user data.
 
 [![Watch the LeadFlow walkthrough](demo/walkthrough-poster.jpg)](https://github.com/tusharg007/leadflow-pravarai/releases/tag/walkthrough-2026-10-16)
