@@ -66,7 +66,11 @@ export function LeadCard({
       </div>
       {lead.followUpAt && (
         <div id={`follow-up-${lead.id}`} className="mt-3">
-          <FollowUpChip value={lead.followUpAt} now={now} />
+          <FollowUpChip
+            value={lead.followUpAt}
+            now={now}
+            closed={lead.status === 'won' || lead.status === 'lost'}
+          />
         </div>
       )}
     </button>

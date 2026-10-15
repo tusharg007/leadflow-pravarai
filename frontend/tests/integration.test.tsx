@@ -9,6 +9,44 @@ import { absoluteTime, localDateValue } from '@/features/leads/lib/format';
 const sarahId = '507f1f77bcf86cd799439011';
 afterEach(() => vi.useRealTimers());
 
+it.each(['lost', 'won', 'contacted'] as const)(
+  'shows the correct past-follow-up chip for %s in the pinned card and timeline',
+  async (status) => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(new Date(2026, 9, 14, 12));
+    const lead = leads[0];
+    if (!lead) throw new Error('Missing Sarah fixture');
+    lead.status = status;
+    lead.followUpAt = new Date(2026, 9, 14, 11, 59).toISOString();
+    const closed = status === 'lost' || status === 'won';
+    const label = `${closed ? 'Follow-up' : 'Overdue'}: ${absoluteTime(lead.followUpAt)}`;
+    const user = userEvent.setup();
+    renderScreen();
+    const pinned = await screen.findByRole('region', {
+      name: "Today's follow-ups",
+    });
+    const card = within(pinned).getByRole('button', {
+      name: 'View Sarah Connor',
+    });
+    const chip = within(card).getByText(label).parentElement;
+    expect(chip).toHaveClass(
+      closed ? 'bg-slate-100' : 'bg-red-100',
+      closed ? 'text-slate-700' : 'text-red-800',
+    );
+    expect(card).toHaveAccessibleDescription(label);
+    await user.click(card);
+    const dialog = screen.getByRole('dialog');
+    const reminder = await within(dialog).findByText(label, { exact: true });
+    expect(reminder.parentElement).toHaveClass(
+      closed ? 'bg-slate-100' : 'bg-red-100',
+      closed ? 'text-slate-700' : 'text-red-800',
+    );
+    if (closed) {
+      expect(within(dialog).queryByText(/^Overdue:/)).not.toBeInTheDocument();
+    }
+  },
+);
+
 it('moves a past-due note follow-up into today immediately with a red reminder', async () => {
   vi.useFakeTimers({ toFake: ['Date'] });
   vi.setSystemTime(new Date(2026, 9, 14, 12));

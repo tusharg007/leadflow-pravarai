@@ -24,3 +24,18 @@ it.each([
     `text-${color}-${color === 'slate' ? '700' : '800'}`,
   );
 });
+
+it.each([new Date(2026, 9, 14, 11, 59), now, new Date(2026, 9, 15)])(
+  'keeps closed reminders neutral at %s',
+  (date) => {
+    const value = date.toISOString();
+    render(<FollowUpChip value={value} now={now} closed />);
+    const chip = screen.getByText(
+      `Follow-up: ${absoluteTime(value)}`,
+    ).parentElement;
+    expect(chip).toHaveClass('bg-slate-100', 'text-slate-700');
+    expect(chip).not.toHaveClass('bg-red-100');
+    expect(chip).not.toHaveClass('bg-blue-100');
+    expect(screen.queryByText(/^Overdue:/)).not.toBeInTheDocument();
+  },
+);

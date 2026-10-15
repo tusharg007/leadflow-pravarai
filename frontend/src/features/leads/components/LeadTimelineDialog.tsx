@@ -81,7 +81,11 @@ export function LeadTimelineDialog({
           <>
             {data.followUpAt && (
               <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
-                <FollowUpChip value={data.followUpAt} now={now} />
+                <FollowUpChip
+                  value={data.followUpAt}
+                  now={now}
+                  closed={data.status === 'won' || data.status === 'lost'}
+                />
                 <Button
                   variant="ghost"
                   disabled={pending}
