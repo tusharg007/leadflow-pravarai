@@ -6,7 +6,7 @@ I completed only Phases 0 and 1 on October 13, 2026. I read the standing instruc
 
 1. **What changed:** I initialized Git and added `.gitignore`, `.editorconfig`, `.gitattributes`, root `.env.example`, and the README skeleton in `e42543b` (`chore: establish repository hygiene and project brief`). I wrote the complete API contract, shapes, request/response examples, validation rules, and error envelope in `c2d74aa` (`docs: define the complete LeadFlow API contract`).
 2. **Verification:** I verified that reference files, real environment files, node_modules, and dist are ignored. Backend lint/typecheck/test/build and frontend lint/typecheck/test/build were not applicable at this phase because neither package existed. I did not create placeholder apps to report artificial passes. Docker belongs to Phase 5.
-3. **Assumptions:** I read `reference/06_ASSIGNMENT_REFERENCE.md` because the requested assignment path was absent. I chose strict bodies and list query parameters, trimmed optional strings normalized to null, and New-only lead creation. I recorded these decisions in the README and API contract.
+3. **Assumptions:** I chose strict bodies and list query parameters, trimmed optional strings normalized to null, and New-only lead creation. I recorded these decisions in the README and API contract.
 4. **Next:** I proceeded to the authorized backend phase.
 
 ## Phase 1
@@ -40,11 +40,11 @@ I completed only Phases 0 and 1 on October 13, 2026. I read the standing instruc
    | Frontend lint/typecheck/test/build | Not applicable — frontend is deferred to Phase 2 |
    | Docker Compose                     | Deferred to Phase 5                              |
 
-   I used Node 22.21.0 and npm 10.9.4. The local npm launcher points at a missing module, so I invoked the installed CLI directly. My successful gate command was:
+   I used Node 22.21.0 and npm 10.9.4. The local npm launcher points at a missing module, so I invoked the installed npm CLI directly. My successful gate command was:
 
    ```powershell
    # Working directory: backend/
-   node 'C:/Program Files/node_modules/npm/bin/npm-cli.js' run lint && node 'C:/Program Files/node_modules/npm/bin/npm-cli.js' run typecheck && node 'C:/Program Files/node_modules/npm/bin/npm-cli.js' test && node 'C:/Program Files/node_modules/npm/bin/npm-cli.js' run build && node 'C:/Program Files/node_modules/npm/bin/npm-cli.js' run format:check
+   npm run lint && npm run typecheck && npm test && npm run build && npm run format:check
    ```
 
    I also started the emitted `dist/server.js` against an isolated MongoDB 7 database and checked health and the lead list over HTTP. I ran `npm run seed:prod`, `npm run seed`, and `npm run seed:prod -- --reset` against that temporary database. I verified six leads, all six statuses, 18 discussions, Sarah's follow-up today at 2 PM, one overdue follow-up, and one future follow-up. The development seed rerun skipped all six fixtures without duplicating data.

@@ -61,7 +61,7 @@ Only the project's new containers and `leadflow_default` network were removed. I
 ## Assumptions and decisions
 
 - I accepted the supplied Phase 1 HEAD and added the missing acceptance tag without moving another tag. I used command-scoped Git ownership exceptions and the installed npm CLI rather than changing global configuration.
-- I found `.cache/` already ignored/untracked and added `*.env` coverage to protect an untracked credential file, without reading/modifying it. I left all reference files untouched; the available assignment copy remains `reference/06_ASSIGNMENT_REFERENCE.md`.
+- I found `.cache/` already ignored/untracked and added `*.env` coverage to protect an untracked credential file, without reading/modifying it. I left all reference files untouched.
 - I kept the accepted API contract unchanged. I create New leads from name/company/phone, normalize blank optional strings to null, and retain strict bodies/list queries.
 - I store/transport UTC and classify follow-ups by the browser's local calendar day. Earlier times today remain pinned; overdue means a previous day. Today appears only in the pinned section, time ascending; other leads retain API order.
 - I preserve a follow-up when a note omits it; explicit null clears it. Enabled follow-ups require both date/time, date no earlier than today, and a valid local time. DST gaps are rejected; repeated ambiguous times use JavaScript's earlier occurrence.
@@ -135,3 +135,9 @@ I reran `npm run test:e2e`: **1 passed**, including real API note movement and s
 I regenerated seven screenshots with `npm run screenshots`. Browser assertions passed at 360×640 and 320×568 for a real lead with 120-character unbroken name/company and a 5000-character note: date, time and Save Note each fit the viewport and dialog bounds after scrolling, with no page overflow. I also verified 360/768/1280 layouts, focus behavior and overdue contrast. I saved [the long mobile timeline](../screenshots/timeline-long-mobile.png) and captured Sarah's earlier-today red chip while she remains pinned.
 
 I validated `docker compose -p leadflow config --quiet`; I did not repeat the earlier clean-clone Docker build during this fix pass. I found no new unresolved issue, tracked environment secrets, reference files or cache artifacts. I used the installed npm CLI on this machine; the README now gives standard npm commands. I retain the earlier phase records as historical evidence; this section supersedes their seed-timezone and overdue descriptions. Sarah's +30-minute seed follow-up can cross local midnight, while overdue styling always compares exact instants.
+
+## Polish pass — October 15, 2026
+
+I made Won/Lost follow-up chips neutral in cards and timeline dialogs, with the absolute-time label and unchanged pinned-section membership. I added closed/open regression tests and sanitized the npm installation path and assignment-copy mentions in the phase reports. I preserved `README.md` and `docs/AI_USAGE.md` byte for byte.
+
+I ran frontend `lint`, `typecheck`, `test`, `build` and `format:check` after each item: all passed, with 47 tests across 8 files on both runs.
