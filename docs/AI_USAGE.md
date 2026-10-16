@@ -1,25 +1,24 @@
 # AI usage
 
-I used OpenAI Codex in the desktop app for all phases. I supplied `AGENTS.md`, the master prompt, implementation plan, and local assessment/wireframes. I initially constrained work to Phases 0 and 1, then authorized an unattended run for Phases 2–5.
+## Tools
+- Claude (Anthropic): planning, prompt drafting, and review of the delivered code and test evidence.
+- OpenAI Codex (desktop app): code generation, tests, Docker setup, documentation and the demo recordings.
 
-Codex generated the hygiene files, API documentation, backend configuration, Mongoose models, Zod validation, service and HTTP layers, centralized error handling, tests, seed data, and setup documentation. It verified npm package versions, generated the lockfile, ran automated checks, and created the local Conventional Commits. It inspected the boilerplate ZIP as a style reference without copying its application features.
+## Workflow
+1. Inputs: the assignment, the wireframes and a UI boilerplate (style reference only).
+2. A written plan and API contract (`docs/ai/01_IMPLEMENTATION_PLAN.md`, `docs/API.md`) and standing rules (`AGENTS.md`) were fixed before code generation.
+3. Codex built the backend first, then the frontend, Docker setup and docs in phases. Each phase had to pass lint, typecheck, tests and build. Phases 2 to 5 ran as one extended non-interactive session; I reviewed the result afterwards.
+4. I ran the app myself (Docker setup, seed, API error cases, browser) and sent independent review findings back for fixes.
 
-Codex also generated the Next.js frontend, Radix primitives, TanStack Query caches, forms, URL state, MSW tests, browser smoke/screenshot tools and Docker delivery. It corrected logging/CORS, abort handling, strict optional typing, font resolution, responsive truncation and runner compatibility while verifying the implementation.
+## What the AI generated
+Most of the source code, tests, Dockerfiles, seed script and documentation. The demo videos are automated recordings. The app itself has no AI features.
 
-Codex performed the recorded checks and browser verification, and the videos are automated recordings. I ran the Docker setup, seed and API error checks myself and viewed the app in the browser. I have no AI features in the app. I record the unattended scope in [the run prompt](ai/run-logs/07_UNATTENDED_RUN_PROMPT.md), decisions in [the log](ai/run-logs/AUTONOMOUS_RUN_LOG.md), and results in [the report](ai/run-logs/06_AUTONOMOUS_RUN_REPORT.md).
+## Review findings fixed after generation
+- Seed follow-ups depended on the server timezone; they are now relative to the current time.
+- The timeline dialog clipped its controls on small screens with very long names; the title is now clamped and the dialog scrolls.
+- Past-due follow-ups earlier today were not shown as overdue; they now show red while staying pinned.
+- Closed (Won/Lost) leads showed red overdue chips; they now show a neutral chip.
+- GET requests sent a JSON content type and triggered CORS preflights; the header is now sent only with a body.
 
-## Direct implementation prompt
-
-I used this prompt for the current work:
-
-```text
-Read AGENTS.md and docs/ai/03_CODEX_MASTER_PROMPT.md completely, then docs/ai/01_IMPLEMENTATION_PLAN.md, reference/ASSIGNMENT.md and the images in reference/wireframes/. Confirm you have read them in two sentences.
-
-Then do Phase 0 and Phase 1 only:
-- Phase 0: repo hygiene (.gitignore, .editorconfig, .gitattributes, root README skeleton, .env.example skeleton) and write docs/API.md (the full contract, with request/response examples and the error envelope).
-- Phase 1: the Express + TypeScript + Mongoose backend with tests and the seed script, committed in logical Conventional Commits (config + app skeleton; models; schemas + validation; services + routes; error handling; tests; seed).
-
-Run the verification gates from AGENTS.md, then report in the phase report format.
-```
-
-I keep complete copies of the additional build instructions in [AGENTS.md](../AGENTS.md), [the master prompt](ai/03_CODEX_MASTER_PROMPT.md), and [the implementation plan](ai/01_IMPLEMENTATION_PLAN.md). My `reference/` directory remains read-only and excluded from Git.
+## Prompts and logs
+The plan, master prompt and phase prompts are in `docs/ai/`. Run logs from the long session are in `docs/ai/run-logs/`.

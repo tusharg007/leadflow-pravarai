@@ -231,8 +231,13 @@ I keep [mobile](docs/screenshots/list-360.png), [tablet](docs/screenshots/list-7
 
 Demo videos (automated, annotated recordings produced with Codex and Playwright on seeded demo data, not manual screen captures): [full walkthrough](docs/demo/leadflow-walkthrough.mp4) and [Docker build check](docs/demo/docker-quick-check.mp4). Verification data is in `docs/demo/`.
 
-## AI usage
+## How AI was used
 
-I used OpenAI Codex under my phase prompts and project instructions to generate the contract, backend, frontend, tests, Dockerfiles and docs. Codex reviewed failures and exercised automated browser flows, correcting logging/CORS, abort handling, strict optional types, font paths, responsive truncation and test tooling.
+The brief encourages AI tooling, so here is exactly how I used it.
 
-I ran the Docker setup, seed and API error checks myself and viewed the app in the browser. Codex generated the code, tests and both demo videos under my prompts; the videos and their PASS cards are automated, not a manual review. I keep prompt references in [docs/AI_USAGE.md](docs/AI_USAGE.md).
+- **Planning and review (Claude):** I used Claude to turn the assignment into an implementation plan, an API contract outline and build prompts, and to review the delivered code and test evidence.
+- **Implementation (OpenAI Codex):** Codex generated most of the code in phases (backend, frontend, tests, Docker setup, docs) from those prompts and the rules in `AGENTS.md`.
+- **My part:** I chose the scope and stack (Next.js + TypeScript with an Express/MongoDB backend instead of the suggested FastAPI), set the constraints and acceptance checks, ran the result myself (Docker setup, seed, API error cases, browser) and sent review findings back for fixes. Defects found and corrected this way include seed dates that depended on the server timezone, a clipped mobile dialog with very long names, closed leads showing as overdue, and unnecessary CORS preflight requests.
+- **Demo videos:** the recordings in `docs/demo/` are automated Playwright recordings produced with Codex, not manual screen captures.
+
+Prompts, the plan and run notes are in [docs/ai](docs/ai/) and [docs/AI_USAGE.md](docs/AI_USAGE.md).
