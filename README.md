@@ -4,7 +4,7 @@ I built LeadFlow as a solo Fullstack Intern assessment for tracking leads, discu
 
 ![LeadFlow desktop](docs/screenshots/list-1280.png)
 
-I provide a [3:24 annotated feature walkthrough](https://github.com/tusharg007/leadflow-pravarai/releases/tag/walkthrough-2026-10-16) and a [chapter-by-chapter guide](docs/DEMO_WALKTHROUGH.md). The recording shows real browser workflows with explanations embedded in the video.
+I provide a [3:24 annotated feature walkthrough](https://github.com/tusharg007/leadflow-pravarai/releases/tag/walkthrough-2026-10-16) and a [chapter-by-chapter guide](docs/DEMO_WALKTHROUGH.md). The video is an automated, annotated recording produced by Codex using Playwright/Chromium, not a manual screen capture. It shows real browser workflows with explanations embedded in the video.
 
 ## Docker quick start
 

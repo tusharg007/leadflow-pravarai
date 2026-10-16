@@ -1,14 +1,14 @@
 # LeadFlow Docker quick-check video
 
-I regenerated this video on October 16, 2026, from HEAD `91bc269`. I changed only the presentation and its evidence files, with no application code changes. I used automated Chromium interactions against production Docker images and a real isolated MongoDB instance.
+Codex regenerated this automated, annotated recording on October 16, 2026, from HEAD `91bc269`, using Playwright/Chromium; it is not a manual screen capture. I changed only the presentation and its evidence files, with no application code changes. The recording uses automated interactions against production Docker images and a real isolated MongoDB instance.
 
-[![Watch my regenerated Docker quick check](demo/docker-quick-check-poster.jpg)](demo/docker-quick-check.mp4)
+[![Watch the Codex-generated Docker quick check](demo/docker-quick-check-poster.jpg)](demo/docker-quick-check.mp4)
 
-I provide the [current local MP4](demo/docker-quick-check.mp4): **72.6 seconds**, **1600×900**, **30 fps**, H.264 and silent. I burn annotations into the frames, retain interactions at normal speed and trim setup and unrecorded transitions. I require no subtitle file. The earlier GitHub release asset predates this regenerated local revision.
+I provide the [current local MP4](demo/docker-quick-check.mp4): **72.6 seconds**, **1600×900**, **30 fps**, H.264 and silent. Codex burns annotations into the frames, retains interactions at normal speed and trims setup and unrecorded transitions. I require no subtitle file. The earlier GitHub release asset predates this regenerated local revision.
 
 ## Presentation corrections
 
-I give each of the six checks its own CHECK intro card and green-accented PASS result card over the live app. For check 3, I use separate 3a and 3b cards for empty-name rejection and name-only creation. I show Diana's Contacted badge before a full reload, the reload itself, and the same badge on an explicit AFTER F5 / PASS card. I limit the mobile sidebar to controls reachable and no horizontal overflow, then end with the six-line summary.
+Codex gives each of the six checks its own CHECK intro card and green-accented PASS result card over the live app. For check 3, Codex uses separate 3a and 3b cards for empty-name rejection and name-only creation. Codex shows Diana's Contacted badge before a full reload, the reload itself, and the same badge on an explicit AFTER F5 / PASS card. Codex limits the mobile sidebar to controls reachable and no horizontal overflow, then ends with the six-line summary.
 
 ## Results
 
@@ -44,7 +44,7 @@ I give each of the six checks its own CHECK intro card and green-accented PASS r
 
 ## Visible F5 evidence
 
-I hold Diana's actual Contacted badge on screen before the reload and again afterward. I verify that the document identifier changes and the API record remains Contacted.
+Codex holds Diana's actual Contacted badge on screen before the reload and again afterward. I verify that the document identifier changes and the API record remains Contacted.
 
 ![Diana before F5](demo/docker-quick-check-f5-before.png)
 

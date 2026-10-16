@@ -2,11 +2,11 @@
 
 I also provide a [focused Docker quick-check video covering the six requested review checks](DOCKER_QUICK_CHECK.md).
 
-I recorded this walkthrough on October 16, 2026, from application commit `efd43ac`. I used automated Chromium interactions against the real compiled Next.js client, Express API and an isolated MongoDB 7 instance. I did not change product code for the recording or use production/user data.
+Codex produced this automated, annotated recording on October 16, 2026, from application commit `efd43ac`, using Playwright/Chromium. It uses automated interactions against the real compiled Next.js client, Express API and an isolated MongoDB 7 instance; it is not a manual screen capture. I did not change product code for the recording or use production/user data.
 
 [![Watch the LeadFlow walkthrough](demo/walkthrough-poster.jpg)](https://github.com/tusharg007/leadflow-pravarai/releases/tag/walkthrough-2026-10-16)
 
-I provide the [GitHub video release](https://github.com/tusharg007/leadflow-pravarai/releases/tag/walkthrough-2026-10-16) and a [repository copy of the MP4](demo/leadflow-walkthrough.mp4). The video is **3:24**, **1600×900**, **30 fps**, H.264, and silent. All explanations are burned into a separate annotation band below the app; I do not require a subtitle file. I trimmed setup and transitions while retaining actions at normal speed and short result-reading holds.
+I provide the [GitHub video release](https://github.com/tusharg007/leadflow-pravarai/releases/tag/walkthrough-2026-10-16) and a [repository copy of the MP4](demo/leadflow-walkthrough.mp4). The video is **3:24**, **1600×900**, **30 fps**, H.264, and silent. All explanations are burned into a separate annotation band below the app; I do not require a subtitle file. Codex trimmed setup and transitions while retaining actions at normal speed and short result-reading holds.
 
 ## Chapters
 
@@ -60,7 +60,7 @@ I provide the [GitHub video release](https://github.com/tusharg007/leadflow-prav
 
 I found the configured GitHub origin was absent and created `tusharg007/leadflow-pravarai` as a private repository for publication. I keep the video, poster and verification record in my local repository and publish the MP4 as a GitHub release asset. Automatic approval review rejected a full source-history push, so this recording task publishes only a video index and the requested MP4.
 
-I use search queries and discussion text as test inputs because LeadFlow has no AI prompting feature. I label intentional invalid-form, delayed-response and network-interruption scenarios in the video; they demonstrate expected validation/recovery behavior. I clear only the disposable demo database for the empty-instance chapter, and I discard it after the recording.
+I use search queries and discussion text as test inputs because LeadFlow has no AI prompting feature. Codex labels intentional invalid-form, delayed-response and network-interruption scenarios in the video; they demonstrate expected validation/recovery behavior. I clear only the disposable demo database for the empty-instance chapter, and I discard it after the recording.
 
 I corrected a relative-time display issue found during video review: a newly saved discussion could be newer than the list's cached clock and briefly read as future time. I clamp discussion ages to the cached present and added regression tests before recording the final take.
 
