@@ -96,7 +96,7 @@ docker compose -p leadflow exec -T backend npm run seed:prod
 Start-Process http://localhost:3000
 ```
 
-I wait for healthy services before the seed command. Existing project demo data is retained. I can refresh dates with `docker compose -p leadflow exec -T backend npm run seed:prod -- --reset` when I intend to reset that project dataset. I stop it with `docker compose -p leadflow down`. Exact manual Windows/macOS/Linux instructions are in [README.md](../../README.md).
+I wait for healthy services before the seed command. Existing project demo data is retained. I can refresh dates with `docker compose -p leadflow exec -T backend npm run seed:prod -- --reset` when I intend to reset that project dataset. I stop it with `docker compose -p leadflow down`. Exact manual Windows/macOS/Linux instructions are in [README.md](../../../README.md).
 
 ## What I will check first in the morning
 
@@ -132,7 +132,7 @@ I reran the final gates after all six commits:
 
 I reran `npm run test:e2e`: **1 passed**, including real API note movement and status persistence after reload. I deliberately occupied 4000 with a temporary listener I owned; the runner selected 54640 and printed that fallback to stdout. I compared every file under `docs/` before/after the smoke: none changed. I stopped that listener and all owned test servers afterwards.
 
-I regenerated seven screenshots with `npm run screenshots`. Browser assertions passed at 360×640 and 320×568 for a real lead with 120-character unbroken name/company and a 5000-character note: date, time and Save Note each fit the viewport and dialog bounds after scrolling, with no page overflow. I also verified 360/768/1280 layouts, focus behavior and overdue contrast. I saved [the long mobile timeline](../screenshots/timeline-long-mobile.png) and captured Sarah's earlier-today red chip while she remains pinned.
+I regenerated seven screenshots with `npm run screenshots`. Browser assertions passed at 360×640 and 320×568 for a real lead with 120-character unbroken name/company and a 5000-character note: date, time and Save Note each fit the viewport and dialog bounds after scrolling, with no page overflow. I also verified 360/768/1280 layouts, focus behavior and overdue contrast. I saved [the long mobile timeline](../../screenshots/timeline-long-mobile.png) and captured Sarah's earlier-today red chip while she remains pinned.
 
 I validated `docker compose -p leadflow config --quiet`; I did not repeat the earlier clean-clone Docker build during this fix pass. I found no new unresolved issue, tracked environment secrets, reference files or cache artifacts. I used the installed npm CLI on this machine; the README now gives standard npm commands. I retain the earlier phase records as historical evidence; this section supersedes their seed-timezone and overdue descriptions. Sarah's +30-minute seed follow-up can cross local midnight, while overdue styling always compares exact instants.
 
@@ -144,6 +144,6 @@ I ran frontend `lint`, `typecheck`, `test`, `build` and `format:check` after eac
 
 ## Recorded walkthrough — October 16, 2026
 
-I recorded the [3:24 annotated walkthrough](../DEMO_WALKTHROUGH.md) from application commit `efd43ac`. Video review found a cached-clock issue that could briefly describe new discussions as future time; I corrected it with two regression tests before the final take.
+I recorded the [3:24 annotated walkthrough](../../DEMO_WALKTHROUGH.md) from application commit `efd43ac`. Video review found a cached-clock issue that could briefly describe new discussions as future time; I corrected it with two regression tests before the final take.
 
 I reran both apps' lint, typecheck, test, build and format gates: all passed, with 68 backend tests and 49 frontend tests. The completed rehearsal and recording each passed 32 chapters with zero unexpected browser errors. I encoded the final video as H.264 with burned-in annotations and normal-speed chapter cuts, and stopped all owned test processes. I publish the requested MP4 as a release asset in the private repository at the configured GitHub origin. Automatic approval review rejected uploading the full application source/history; those commits and the poster/verification evidence remain local.

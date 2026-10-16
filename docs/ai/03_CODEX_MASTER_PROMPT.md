@@ -1,6 +1,6 @@
 # LeadFlow — Master Prompt for Codex
 
-> This file is the build brief. Either paste it into Codex, or keep it at `docs/codex/03_CODEX_MASTER_PROMPT.md` and tell Codex to read and follow it.
+> This file is the build brief. Either paste it into Codex, or keep it at `docs/ai/03_CODEX_MASTER_PROMPT.md` and tell Codex to read and follow it.
 
 ---
 
@@ -9,7 +9,7 @@ You are building **LeadFlow** for a Fullstack Intern take-home. Evaluators will 
 ## 0. Read first
 
 1. `AGENTS.md` (standing rules).
-2. `docs/codex/01_IMPLEMENTATION_PLAN.md` (architecture, data model, API, assumptions).
+2. `docs/ai/01_IMPLEMENTATION_PLAN.md` (architecture, data model, API, assumptions).
 3. `reference/ASSIGNMENT.md` (the assignment text).
 4. `reference/wireframes/*.png` (suggestions; match the layout and feel).
 5. `reference/boilerplate/`: read `src/index.css`, `src/components/ui/{Button,Badge,Dialog,Input,Skeleton}.jsx`, `src/lib/{utils,format}.js`, and the service-layer pattern in `src/lib/{api,services}.js`. This is style reference only; rewrite everything in TypeScript.
@@ -37,7 +37,7 @@ A single-screen lead management tool. One route `/`. All detail views are dialog
 leadflow/
   frontend/        Next.js (App Router) + TypeScript strict
   backend/         Express + TypeScript + Mongoose
-  docs/            API.md, AI_USAGE.md, codex/ (this kit)
+  docs/            API.md, AI_USAGE.md, ai/ (this kit)
   docker-compose.yml
   .env.example
   README.md

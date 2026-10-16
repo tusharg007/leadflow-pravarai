@@ -9,7 +9,7 @@ This is a **solo project**. Write the README and all docs in first person singul
 - Infra: Docker Compose (mongo, backend, frontend).
 
 ## Read first
-- `docs/codex/01_IMPLEMENTATION_PLAN.md` and `docs/codex/03_CODEX_MASTER_PROMPT.md`.
+- `docs/ai/01_IMPLEMENTATION_PLAN.md` and `docs/ai/03_CODEX_MASTER_PROMPT.md`.
 - `reference/ASSIGNMENT.md` and `reference/wireframes/*.png`.
 - `reference/boilerplate/` is **style reference only**.
 

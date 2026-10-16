@@ -179,7 +179,7 @@ backend/src/utils/        errors, normalization, serialization, regex escaping
 backend/src/scripts/      seed CLI, fixtures, persistence
 backend/tests/            API, HTTP, persistence, seed tests
 docs/API.md               shared contract
-docs/codex/               implementation brief
+docs/ai/               implementation brief
 ```
 
 ## Assumptions
@@ -223,7 +223,7 @@ npm run test:e2e
 npm run screenshots
 ```
 
-My runner seeds an isolated database, builds both apps, starts owned servers on free ports and stops them afterwards. The smoke test verifies follow-up movement and status persistence after reload. Screenshot checks cover 360/768/1280 layouts, focus trapping, maximum-length text, overdue contrast and reachable dialog controls at 360×640 and 320×568. I record results in [the report](docs/codex/06_AUTONOMOUS_RUN_REPORT.md) and [timestamped log](docs/codex/AUTONOMOUS_RUN_LOG.md).
+My runner seeds an isolated database, builds both apps, starts owned servers on free ports and stops them afterwards. The smoke test verifies follow-up movement and status persistence after reload. Screenshot checks cover 360/768/1280 layouts, focus trapping, maximum-length text, overdue contrast and reachable dialog controls at 360×640 and 320×568. I record results in [the report](docs/ai/run-logs/06_AUTONOMOUS_RUN_REPORT.md) and [timestamped log](docs/ai/run-logs/AUTONOMOUS_RUN_LOG.md).
 
 ## Screenshots and demo
 

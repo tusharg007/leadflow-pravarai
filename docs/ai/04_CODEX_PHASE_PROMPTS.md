@@ -5,7 +5,7 @@ Send these to Codex one at a time. After each phase, review the output and run t
 ## Kickoff (send first)
 
 ```
-Read AGENTS.md and docs/codex/03_CODEX_MASTER_PROMPT.md completely, then docs/codex/01_IMPLEMENTATION_PLAN.md, reference/ASSIGNMENT.md and the images in reference/wireframes/. Confirm you have read them in two sentences.
+Read AGENTS.md and docs/ai/03_CODEX_MASTER_PROMPT.md completely, then docs/ai/01_IMPLEMENTATION_PLAN.md, reference/ASSIGNMENT.md and the images in reference/wireframes/. Confirm you have read them in two sentences.
 
 Then do Phase 0 and Phase 1 only:
 - Phase 0: repo hygiene (.gitignore, .editorconfig, .gitattributes, root README skeleton, .env.example skeleton) and write docs/API.md (the full contract, with request/response examples and the error envelope).

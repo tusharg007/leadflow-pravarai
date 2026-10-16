@@ -6,14 +6,14 @@ Codex generated the hygiene files, API documentation, backend configuration, Mon
 
 Codex also generated the Next.js frontend, Radix primitives, TanStack Query caches, forms, URL state, MSW tests, browser smoke/screenshot tools and Docker delivery. It corrected logging/CORS, abort handling, strict optional typing, font resolution, responsive truncation and runner compatibility while verifying the implementation.
 
-Codex performed the recorded checks and browser verification, and the videos are automated recordings. I ran the Docker setup, seed and API error checks myself and viewed the app in the browser. I have no AI features in the app. I record the unattended scope in [the run prompt](codex/07_UNATTENDED_RUN_PROMPT.md), decisions in [the log](codex/AUTONOMOUS_RUN_LOG.md), and results in [the report](codex/06_AUTONOMOUS_RUN_REPORT.md).
+Codex performed the recorded checks and browser verification, and the videos are automated recordings. I ran the Docker setup, seed and API error checks myself and viewed the app in the browser. I have no AI features in the app. I record the unattended scope in [the run prompt](ai/run-logs/07_UNATTENDED_RUN_PROMPT.md), decisions in [the log](ai/run-logs/AUTONOMOUS_RUN_LOG.md), and results in [the report](ai/run-logs/06_AUTONOMOUS_RUN_REPORT.md).
 
 ## Direct implementation prompt
 
 I used this prompt for the current work:
 
 ```text
-Read AGENTS.md and docs/codex/03_CODEX_MASTER_PROMPT.md completely, then docs/codex/01_IMPLEMENTATION_PLAN.md, reference/ASSIGNMENT.md and the images in reference/wireframes/. Confirm you have read them in two sentences.
+Read AGENTS.md and docs/ai/03_CODEX_MASTER_PROMPT.md completely, then docs/ai/01_IMPLEMENTATION_PLAN.md, reference/ASSIGNMENT.md and the images in reference/wireframes/. Confirm you have read them in two sentences.
 
 Then do Phase 0 and Phase 1 only:
 - Phase 0: repo hygiene (.gitignore, .editorconfig, .gitattributes, root README skeleton, .env.example skeleton) and write docs/API.md (the full contract, with request/response examples and the error envelope).
@@ -22,4 +22,4 @@ Then do Phase 0 and Phase 1 only:
 Run the verification gates from AGENTS.md, then report in the phase report format.
 ```
 
-I keep complete copies of the additional build instructions in [AGENTS.md](../AGENTS.md), [the master prompt](codex/03_CODEX_MASTER_PROMPT.md), and [the implementation plan](codex/01_IMPLEMENTATION_PLAN.md). My `reference/` directory remains read-only and excluded from Git.
+I keep complete copies of the additional build instructions in [AGENTS.md](../AGENTS.md), [the master prompt](ai/03_CODEX_MASTER_PROMPT.md), and [the implementation plan](ai/01_IMPLEMENTATION_PLAN.md). My `reference/` directory remains read-only and excluded from Git.
