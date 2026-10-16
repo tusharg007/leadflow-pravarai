@@ -7,6 +7,7 @@ A single-screen lead management tool: a sales rep tracks leads, logs every discu
 ## 2. Stack
 
 **Frontend (`frontend/`)**
+
 - Next.js (App Router), TypeScript `strict`, a single route `/`.
 - TanStack Query for server state.
 - react-hook-form + Zod for forms.
@@ -17,6 +18,7 @@ A single-screen lead management tool: a sales rep tracks leads, logs every discu
 - Dropped from the boilerplate: react-router, recharts, dnd-kit, axios, auth pages, AI pages. A small typed `fetch` wrapper replaces axios.
 
 **Backend (`backend/`)**
+
 - Node 22 LTS, Express 5, TypeScript `strict`.
 - MongoDB 7 with Mongoose 8.
 - Zod for request validation, pino for logging, helmet and cors.
@@ -24,10 +26,12 @@ A single-screen lead management tool: a sales rep tracks leads, logs every discu
 - ESLint + Prettier.
 
 **Infra**
+
 - Docker Compose: `mongo`, `backend`, `frontend`.
 - `.env.example` at root and in each app.
 
 **Deliberately skipped**
+
 - Login (optional in the assignment).
 - AI features. They are out of scope, and polish on the required flows scores better.
 
@@ -49,30 +53,30 @@ Layering on the backend: **route -> controller -> service -> model**. Controller
 
 **`leads`**
 
-| Field | Type | Notes |
-|---|---|---|
-| `_id` | ObjectId | exposed as `id` (string) |
-| `name` | string | trimmed, 1–120, required |
-| `company` | string \| null | ≤120 |
-| `phone` | string \| null | ≤30 |
-| `status` | enum | `new`, `contacted`, `qualified`, `proposal_sent`, `won`, `lost`; default `new` |
-| `followUpAt` | Date \| null | UTC |
-| `lastNote` | string \| null | denormalized from the latest discussion |
-| `lastDiscussionAt` | Date \| null | denormalized |
-| `createdAt`, `updatedAt` | Date | timestamps |
+| Field                    | Type           | Notes                                                                          |
+| ------------------------ | -------------- | ------------------------------------------------------------------------------ |
+| `_id`                    | ObjectId       | exposed as `id` (string)                                                       |
+| `name`                   | string         | trimmed, 1–120, required                                                       |
+| `company`                | string \| null | ≤120                                                                           |
+| `phone`                  | string \| null | ≤30                                                                            |
+| `status`                 | enum           | `new`, `contacted`, `qualified`, `proposal_sent`, `won`, `lost`; default `new` |
+| `followUpAt`             | Date \| null   | UTC                                                                            |
+| `lastNote`               | string \| null | denormalized from the latest discussion                                        |
+| `lastDiscussionAt`       | Date \| null   | denormalized                                                                   |
+| `createdAt`, `updatedAt` | Date           | timestamps                                                                     |
 
 Indexes: `{ status: 1, lastDiscussionAt: -1 }`, `{ followUpAt: 1 }`, `{ name: 1 }`.
 
 **`discussions`** (separate collection, not embedded, because the history is unbounded)
 
-| Field | Type | Notes |
-|---|---|---|
-| `_id` | ObjectId | exposed as `id` |
-| `leadId` | ObjectId | ref `Lead` |
-| `content` | string | trimmed, 1–5000 |
-| `kind` | enum | `note` or `system` |
+| Field        | Type         | Notes                                             |
+| ------------ | ------------ | ------------------------------------------------- |
+| `_id`        | ObjectId     | exposed as `id`                                   |
+| `leadId`     | ObjectId     | ref `Lead`                                        |
+| `content`    | string       | trimmed, 1–5000                                   |
+| `kind`       | enum         | `note` or `system`                                |
 | `followUpAt` | Date \| null | follow-up set by this note, shown in the timeline |
-| `createdAt` | Date | no `updatedAt` |
+| `createdAt`  | Date         | no `updatedAt`                                    |
 
 Index: `{ leadId: 1, createdAt: -1 }`.
 
@@ -82,16 +86,17 @@ Index: `{ leadId: 1, createdAt: -1 }`.
 
 All JSON uses camelCase and ISO 8601 UTC strings for dates.
 
-| Method | Path | Success | Errors | Notes |
-|---|---|---|---|---|
-| GET | `/health` | 200 | | liveness |
-| GET | `/leads?status=&q=` | 200 `LeadSummary[]` | 400 | `q` is a case-insensitive name contains match with regex characters escaped. Sorted by `lastDiscussionAt` desc. |
-| POST | `/leads` | 201 `LeadSummary` | 400 | Also writes a `system` discussion "Lead created". |
-| GET | `/leads/:id` | 200 `LeadDetail` | 400, 404 | Discussions newest-first. |
-| PATCH | `/leads/:id` | 200 `LeadSummary` | 400, 404 | Body: `status` and/or `followUpAt` (`null` clears). Empty body or unknown keys give 400. |
-| POST | `/leads/:id/discussions` | 201 `{ discussion, lead }` | 400, 404 | Body: `{ content, followUpAt? }`. |
+| Method | Path                     | Success                    | Errors   | Notes                                                                                                           |
+| ------ | ------------------------ | -------------------------- | -------- | --------------------------------------------------------------------------------------------------------------- |
+| GET    | `/health`                | 200                        |          | liveness                                                                                                        |
+| GET    | `/leads?status=&q=`      | 200 `LeadSummary[]`        | 400      | `q` is a case-insensitive name contains match with regex characters escaped. Sorted by `lastDiscussionAt` desc. |
+| POST   | `/leads`                 | 201 `LeadSummary`          | 400      | Also writes a `system` discussion "Lead created".                                                               |
+| GET    | `/leads/:id`             | 200 `LeadDetail`           | 400, 404 | Discussions newest-first.                                                                                       |
+| PATCH  | `/leads/:id`             | 200 `LeadSummary`          | 400, 404 | Body: `status` and/or `followUpAt` (`null` clears). Empty body or unknown keys give 400.                        |
+| POST   | `/leads/:id/discussions` | 201 `{ discussion, lead }` | 400, 404 | Body: `{ content, followUpAt? }`.                                                                               |
 
 **Shapes**
+
 - `LeadSummary`: `{ id, name, company, phone, status, followUpAt, lastNote, lastDiscussionAt, createdAt, updatedAt }`
 - `Discussion`: `{ id, leadId, content, kind, followUpAt, createdAt }`
 - `LeadDetail`: `LeadSummary & { discussions: Discussion[] }`
@@ -125,22 +130,22 @@ Status codes: 400 validation (including malformed ObjectId, malformed JSON, inva
 
 ## 8. Time budget (about 8h)
 
-| Phase | Work | Time |
-|---|---|---|
-| 0 | Scaffold, repo hygiene, `docs/API.md` | 0.5h |
-| 1 | Backend, tests, seed | 1.5h |
-| 2 | Frontend foundation | 1h |
-| 3 | Features (list, add lead, timeline) | 2.5h |
-| 4 | Hardening, accessibility, tests | 1h |
-| 5 | Docker, README, final verification | 1.5h |
+| Phase | Work                                  | Time |
+| ----- | ------------------------------------- | ---- |
+| 0     | Scaffold, repo hygiene, `docs/API.md` | 0.5h |
+| 1     | Backend, tests, seed                  | 1.5h |
+| 2     | Frontend foundation                   | 1h   |
+| 3     | Features (list, add lead, timeline)   | 2.5h |
+| 4     | Hardening, accessibility, tests       | 1h   |
+| 5     | Docker, README, final verification    | 1.5h |
 
 ## 9. Risks and mitigations
 
-| Risk | Mitigation |
-|---|---|
-| Regex or NoSQL injection through `q` | Zod-validate `q` as a string and escape regex characters before building the query. |
-| Timezone bugs in "today" | Pure `classify` / `partition` functions with boundary tests (23:59, 00:00, DST). |
-| `NEXT_PUBLIC_*` is baked at build time in Docker | Pass `NEXT_PUBLIC_API_URL` as a build arg and document it. |
-| Windows line endings breaking shell scripts in containers | `.gitattributes` with `* text=auto eol=lf` and `.editorconfig`. |
-| One giant commit | Phase-by-phase commits using Conventional Commits. |
-| Over-scoping | Non-goals are fixed: no auth, no AI, no pagination. |
+| Risk                                                      | Mitigation                                                                          |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Regex or NoSQL injection through `q`                      | Zod-validate `q` as a string and escape regex characters before building the query. |
+| Timezone bugs in "today"                                  | Pure `classify` / `partition` functions with boundary tests (23:59, 00:00, DST).    |
+| `NEXT_PUBLIC_*` is baked at build time in Docker          | Pass `NEXT_PUBLIC_API_URL` as a build arg and document it.                          |
+| Windows line endings breaking shell scripts in containers | `.gitattributes` with `* text=auto eol=lf` and `.editorconfig`.                     |
+| One giant commit                                          | Phase-by-phase commits using Conventional Commits.                                  |
+| Over-scoping                                              | Non-goals are fixed: no auth, no AI, no pagination.                                 |

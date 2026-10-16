@@ -1,12 +1,12 @@
 # LeadFlow annotated walkthrough
 
-I also provide a [focused Docker quick-check video covering the six requested review checks](DOCKER_QUICK_CHECK.md).
+Automated, annotated Playwright/Chromium recording of the compiled Next.js client, the Express API and an isolated MongoDB 7 instance, recorded from commit `efd43ac`. It is not a manual screen capture. No product code was changed for the recording and no production data was used.
 
-Codex produced this automated, annotated recording on October 16, 2026, from application commit `efd43ac`, using Playwright/Chromium. It uses automated interactions against the real compiled Next.js client, Express API and an isolated MongoDB 7 instance; it is not a manual screen capture. I did not change product code for the recording or use production/user data.
+A [focused Docker quick-check video covers the six requested review checks](DOCKER_QUICK_CHECK.md).
 
 [![Watch the LeadFlow walkthrough](demo/walkthrough-poster.jpg)](https://github.com/tusharg007/leadflow-pravarai/releases/tag/walkthrough-2026-10-16)
 
-I provide the [GitHub video release](https://github.com/tusharg007/leadflow-pravarai/releases/tag/walkthrough-2026-10-16) and a [repository copy of the MP4](demo/leadflow-walkthrough.mp4). The video is **3:24**, **1600×900**, **30 fps**, H.264, and silent. All explanations are burned into a separate annotation band below the app; I do not require a subtitle file. Codex trimmed setup and transitions while retaining actions at normal speed and short result-reading holds.
+The [GitHub video release](https://github.com/tusharg007/leadflow-pravarai/releases/tag/walkthrough-2026-10-16) and a [repository copy of the MP4](demo/leadflow-walkthrough.mp4) contain the recording made on October 16, 2026. The video is **3:24**, **1600×900**, **30 fps**, H.264, and silent. All explanations are burned into a separate annotation band below the app; no subtitle file is required. Codex trimmed setup and transitions while retaining actions at normal speed and short result-reading holds. No production/user data was used.
 
 ## Chapters
 
@@ -45,27 +45,27 @@ I provide the [GitHub video release](https://github.com/tusharg007/leadflow-prav
 | 3:13 | A clean empty instance is ready to use          |
 | 3:17 | Verified architecture and delivery              |
 
-## What I verified
+## Verified behaviour
 
-- I exercised all six status filters, combined filter/search state, mixed-case search and literal punctuation, no-results and empty-instance states.
-- I checked newest-first discussion history, italic system entries, note-only follow-up preservation, immediate pinned movement, elapsed-time overdue styling, clear follow-up and reload persistence.
-- I compared open, Lost and Won reminders using real mutations. Closed reminders are neutral; pinning still follows the local calendar day.
-- I created both a complete contact and a name-only contact, checked required-name and date/time validation, corrected the form, and saved a future reminder.
-- I checked URL deep links, keyboard focus trapping/return, real-response loading skeletons and recovery after a controlled browser-network interruption.
-- I checked local-day membership in Los Angeles and Auckland using the same stored UTC timestamps. I checked mobile interactions at 360×640 and dialog bounds at both 360×640 and 320×568 with 120-character name/company and a 5,000-character note.
-- I verified actual API success responses and the validation/not-found error envelope. The API result card displays captured response data.
-- I ran lint, strict typecheck, tests, build and format checks in both apps before filming: **68 backend tests** and **49 frontend tests** passed. I observed **zero unexpected browser errors** in the completed rehearsal and final recording.
+- All six status filters, combined filter/search state, mixed-case search and literal punctuation, no-results and empty-instance states were exercised.
+- Checks covered newest-first discussion history, italic system entries, note-only follow-up preservation, immediate pinned movement, elapsed-time overdue styling, clear follow-up and reload persistence.
+- Open, Lost and Won reminders were compared using real mutations. Closed reminders are neutral; pinning still follows the local calendar day.
+- Both a complete contact and a name-only contact were created; required-name and date/time validation were checked, the form was corrected, and a future reminder was saved.
+- Checks covered URL deep links, keyboard focus trapping/return, real-response loading skeletons and recovery after a controlled browser-network interruption.
+- Local-day membership was checked in Los Angeles and Auckland using the same stored UTC timestamps. Mobile interactions were checked at 360×640 and dialog bounds at both 360×640 and 320×568 with 120-character name/company and a 5,000-character note.
+- Actual API success responses and the validation/not-found error envelope were verified. The API result card displays captured response data.
+- Lint, strict typecheck, tests, build and format checks ran in both apps before filming: **68 backend tests** and **49 frontend tests** passed. The completed rehearsal and final recording had **zero unexpected browser errors**.
 
 ## Recording decisions
 
-I found the configured GitHub origin was absent and created `tusharg007/leadflow-pravarai` as a private repository for publication. I keep the video, poster and verification record in my local repository and publish the MP4 as a GitHub release asset. Automatic approval review rejected a full source-history push, so this recording task publishes only a video index and the requested MP4.
+The configured GitHub origin was absent, so `tusharg007/leadflow-pravarai` was created as a private repository for publication. The video, poster and verification record were retained in the local repository, and the MP4 was published as a GitHub release asset. Automatic approval review rejected a full source-history push, so this recording task published only a video index and the requested MP4.
 
-I use search queries and discussion text as test inputs because LeadFlow has no AI prompting feature. Codex labels intentional invalid-form, delayed-response and network-interruption scenarios in the video; they demonstrate expected validation/recovery behavior. I clear only the disposable demo database for the empty-instance chapter, and I discard it after the recording.
+Search queries and discussion text serve as test inputs because LeadFlow has no AI prompting feature. Codex labels intentional invalid-form, delayed-response and network-interruption scenarios in the video; they demonstrate expected validation/recovery behavior. Only the disposable demo database was cleared for the empty-instance chapter, then discarded after the recording.
 
-I corrected a relative-time display issue found during video review: a newly saved discussion could be newer than the list's cached clock and briefly read as future time. I clamp discussion ages to the cached present and added regression tests before recording the final take.
+A relative-time display issue found during video review was corrected: a newly saved discussion could be newer than the list's cached clock and briefly read as future time. Discussion ages are clamped to the cached present, and regression tests were added before recording the final take.
 
-I used ports 3100/4100 because existing services occupied 3000/4000. I stopped every browser, server and temporary database process I started and left the existing Docker resources untouched. I kept raw footage, working annotation files and rehearsal assets under ignored `.cache/video/`; only the finished MP4, poster and verification record are committed.
+Ports 3100/4100 were used because existing services occupied 3000/4000. Every browser, server and temporary database process started for the recording was stopped, leaving the existing Docker resources untouched. Raw footage, working annotation files and rehearsal assets remain under ignored `.cache/video/`; only the finished MP4, poster and verification record are committed.
 
-I distinguish this automated recording from my personal review. I preserved the existing personal-review and submission-video wording in `README.md` and `docs/AI_USAGE.md`.
+This automated recording is distinct from personal review. The existing personal-review and submission-video wording in `README.md` and `docs/AI_USAGE.md` was preserved during the recording task.
 
-I retain [chapter timings, source provenance and captured API checks](demo/walkthrough-verification.json). Video SHA-256: `4ef82cdb5a988324cf0f9429bc10ea8269228b97b3dbd45312a02fae8b50edfe`.
+[Chapter timings, source provenance and captured API checks](demo/walkthrough-verification.json) are retained. Video SHA-256: `4ef82cdb5a988324cf0f9429bc10ea8269228b97b3dbd45312a02fae8b50edfe`.

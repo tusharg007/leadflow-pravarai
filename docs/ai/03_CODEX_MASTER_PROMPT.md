@@ -19,6 +19,7 @@ You are building **LeadFlow** for a Fullstack Intern take-home. Evaluators will 
 A single-screen lead management tool. One route `/`. All detail views are dialogs, never separate pages. No login. No AI features. No pagination.
 
 **Required**
+
 - Lead list showing name, status badge, last discussion note, and time since last discussion.
 - Filter by status: New, Contacted, Qualified, Proposal Sent, Won, Lost.
 - Today's follow-ups pinned at the top.
@@ -26,6 +27,7 @@ A single-screen lead management tool. One route `/`. All detail views are dialog
 - Add New Lead: name required; company and phone optional; status defaults to New.
 
 **Bonus (do all)**
+
 - Search leads by name.
 - Overdue follow-ups highlighted in red.
 - Docker Compose setup.
@@ -52,6 +54,7 @@ leadflow/
 **Libraries:** express (v5), mongoose (v8), zod, pino + pino-http, helmet, cors, dotenv or Node `--env-file`, tsx (dev), typescript, vitest, supertest, mongodb-memory-server, eslint, prettier. Verify versions first.
 
 **Structure**
+
 ```
 backend/src/
   server.ts                 start: connect DB, listen, graceful shutdown
@@ -72,15 +75,18 @@ backend/src/
   scripts/seed.ts
 backend/tests/
 ```
+
 Pick one module system (ESM or CommonJS) and configure `tsconfig` so that dev (tsx), tests (vitest) and the Docker build all work. Prefer the simplest setup that works.
 
 **Models**
+
 - `Lead`: `name` (trim, 1–120, required), `company` (≤120, nullable), `phone` (≤30, nullable), `status` enum `new | contacted | qualified | proposal_sent | won | lost` (default `new`), `followUpAt` (Date, nullable), `lastNote` (string, nullable), `lastDiscussionAt` (Date, nullable), timestamps. Indexes: `{status:1, lastDiscussionAt:-1}`, `{followUpAt:1}`, `{name:1}`.
 - `Discussion`: `leadId` (ObjectId ref Lead, required), `content` (trim, 1–5000), `kind` enum `note | system` (default `note`), `followUpAt` (Date, nullable), `createdAt` only. Index `{leadId:1, createdAt:-1}`.
 - JSON output: expose `id` (string), hide `_id` and `__v`, dates as ISO strings. Implement this in one place (`utils/serialize.ts` or a schema `toJSON` transform).
 - Normalize empty or whitespace-only optional strings to `null`.
 
 **Endpoints (prefix `/api`)**
+
 - `GET /health` -> 200 `{ status: "ok" }`.
 - `GET /leads?status=&q=` -> 200 `LeadSummary[]`. `status` must be a valid enum value. `q` is a trimmed string (max 100), matched as a case-insensitive "name contains" with regex special characters escaped. Sort by `lastDiscussionAt` desc, then `_id` desc.
 - `POST /leads` -> 201 `LeadSummary`. Also inserts a `system` discussion with content "Lead created" and sets `lastNote` and `lastDiscussionAt` accordingly.
@@ -90,11 +96,13 @@ Pick one module system (ESM or CommonJS) and configure `tsconfig` so that dev (t
   Service rule: verify the lead exists; insert the discussion; then one atomic `findOneAndUpdate` that `$set`s `lastNote`, `lastDiscussionAt`, and `followUpAt` only if provided, returning the new document. If the lead update fails, delete the inserted discussion and rethrow. A note without `followUpAt` must leave the lead's `followUpAt` unchanged.
 
 **Response shapes**
+
 - `LeadSummary`: `{ id, name, company, phone, status, followUpAt, lastNote, lastDiscussionAt, createdAt, updatedAt }`.
 - `Discussion`: `{ id, leadId, content, kind, followUpAt, createdAt }`.
 - `LeadDetail`: `LeadSummary & { discussions: Discussion[] }`.
 
 **Errors and status codes**
+
 - Success: 200, 201.
 - 400: Zod failures (body, query, params), malformed ObjectId, malformed JSON.
 - 404: unknown lead, unknown route.
@@ -105,12 +113,14 @@ Pick one module system (ESM or CommonJS) and configure `tsconfig` so that dev (t
 **Security and hygiene:** `helmet`, `cors` restricted to `CORS_ORIGINS` (comma-separated), `express.json({ limit: "100kb" })`, `x-powered-by` disabled, graceful shutdown on SIGTERM/SIGINT, no secrets in logs.
 
 **Seed (`npm run seed`, plus `npm run seed:prod` that runs from `dist/` for use inside Docker)**
+
 - Idempotent; supports `--reset` to wipe and reseed.
 - At least 6 leads covering all six statuses, each with 2–4 discussions, timestamps relative to now.
 - Include one follow-up **today**, one **overdue**, and one in the **future**.
 - Reuse the wireframe data: Sarah Connor (Acme Corp, 555-0199, Proposal Sent, follow-up today 2:00 PM), Hank Scorpio (Globex, New), Bill Lumbergh (Initech, Contacted), Bruce Wayne (Wayne Ent, Won), plus at least two more.
 
 **Backend tests (vitest + supertest + mongodb-memory-server), at least 15**
+
 - create lead -> 201 and shape.
 - empty name -> 400 with envelope and `details`.
 - malformed id -> 400; unknown id -> 404; unknown route -> 404.
@@ -132,6 +142,7 @@ Pick one module system (ESM or CommonJS) and configure `tsconfig` so that dev (t
 **Libraries:** next, react, typescript, tailwindcss v4, @tanstack/react-query, react-hook-form, @hookform/resolvers, zod, @radix-ui/react-dialog, @radix-ui/react-select, class-variance-authority, clsx, tailwind-merge, date-fns, sonner, lucide-react; dev: vitest, @testing-library/react, @testing-library/user-event, @testing-library/jest-dom, jsdom, msw, eslint (next config), prettier. Verify versions first.
 
 **Structure**
+
 ```
 frontend/src/
   app/layout.tsx, page.tsx, providers.tsx, globals.css
@@ -150,6 +161,7 @@ frontend/src/
 **Types:** `Lead`, `Discussion`, `LeadDetail`, `LeadStatus` mirror `docs/API.md` exactly (camelCase). Validate API responses with Zod in the API layer, so bad data fails loudly.
 
 **State and behaviour**
+
 - TanStack Query for all server state. Query keys: `["leads", { status, q }]` and `["lead", id]`.
 - Filter, search and open lead id live in the URL (`?status=&q=&lead=<id>`). Opening a lead is a dialog, not a navigation.
 - Search is debounced (300 ms). Status filter and search apply to both sections.
@@ -170,6 +182,7 @@ frontend/src/
 **Accessibility:** Radix focus trap and Esc to close; every input labelled; filter chips use `aria-pressed`; visible focus rings; errors announced via `aria-live`; the lead card is a real `<button>`; AA contrast.
 
 **UI spec (fallback if the images cannot be read)**
+
 - White header bar: left "LeadFlow" with a trending-up icon in blue-600, bold; right a blue-600 "+ Add New Lead" button. Page background slate-50. Content centered, max width about 62rem.
 - Filter row: uppercase "FILTERS:" label, then pills All / New / Contacted / Qualified / Proposal Sent / Won / Lost. Active = slate-800 fill with white text; inactive = white with a border. Horizontally scrollable on mobile. Search input to the right on desktop, full width above the chips on mobile.
 - Section labels, small uppercase tracking-wider slate-500: "TODAY'S FOLLOW-UPS" (pin icon) and "ALL LEADS".
@@ -179,6 +192,7 @@ frontend/src/
 - Design tokens: port the boilerplate's `@theme` token approach, with the wireframe's blue-600 as the brand colour and Inter loaded through `next/font`. Do not reuse the boilerplate's brand name, gradient, or Sora font.
 
 **Frontend tests (vitest + RTL + MSW)**
+
 - `followUp.ts`: classify and partition, including boundary cases (23:59, 00:00, exactly now, DST change day).
 - Zod schemas (lead form, discussion form).
 - Integration: open a lead, add a note with a follow-up today, and see the lead move into the pinned section without a reload.

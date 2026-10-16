@@ -1,14 +1,10 @@
 # LeadFlow Docker quick-check video
 
-Codex regenerated this automated, annotated recording on October 16, 2026, from HEAD `91bc269`, using Playwright/Chromium; it is not a manual screen capture. I changed only the presentation and its evidence files, with no application code changes. The recording uses automated interactions against production Docker images and a real isolated MongoDB instance.
+Automated, annotated Playwright/Chromium recording of the compiled Next.js client, the Express API and an isolated MongoDB 7 instance, recorded from commit `91bc269`. It is not a manual screen capture. No product code was changed for the recording and no production data was used.
 
 [![Watch the Codex-generated Docker quick check](demo/docker-quick-check-poster.jpg)](demo/docker-quick-check.mp4)
 
-I provide the [current local MP4](demo/docker-quick-check.mp4): **72.6 seconds**, **1600×900**, **30 fps**, H.264 and silent. Codex burns annotations into the frames, retains interactions at normal speed and trims setup and unrecorded transitions. I require no subtitle file. The earlier GitHub release asset predates this regenerated local revision.
-
-## Presentation corrections
-
-Codex gives each of the six checks its own CHECK intro card and green-accented PASS result card over the live app. For check 3, Codex uses separate 3a and 3b cards for empty-name rejection and name-only creation. Codex shows Diana's Contacted badge before a full reload, the reload itself, and the same badge on an explicit AFTER F5 / PASS card. Codex limits the mobile sidebar to controls reachable and no horizontal overflow, then ends with the six-line summary.
+The [current repository MP4](demo/docker-quick-check.mp4) was regenerated on October 16, 2026, with changes limited to the presentation and its evidence files. It is **72.6 seconds**, **1600×900**, **30 fps**, H.264 and silent. Codex burns annotations into the frames, retains interactions at normal speed and trims setup and unrecorded transitions. No subtitle file is required. The GitHub release page may hold an earlier revision of this clip; the file in this repository is current.
 
 ## Results
 
@@ -44,7 +40,7 @@ Codex gives each of the six checks its own CHECK intro card and green-accented P
 
 ## Visible F5 evidence
 
-Codex holds Diana's actual Contacted badge on screen before the reload and again afterward. I verify that the document identifier changes and the API record remains Contacted.
+Codex holds Diana's actual Contacted badge on screen before the reload and again afterward. The document identifier change and the API record remaining Contacted are verified.
 
 ![Diana before F5](demo/docker-quick-check-f5-before.png)
 
@@ -52,18 +48,18 @@ Codex holds Diana's actual Contacted badge on screen before the reload and again
 
 ## Mobile scope
 
-I use a real 360×640 viewport with a 120-character unbroken name and company. I scroll date, time and Save Note into view, assert full viewport visibility and containment inside the dialog, check `document.documentElement.scrollWidth <= innerWidth`, and save a note successfully. I make no claim in this clip about responsive filter interactions or testing the full discussion history.
+The check uses a real 360×640 viewport with a 120-character unbroken name and company. Date, time and Save Note are scrolled into view; full viewport visibility and containment inside the dialog are asserted, `document.documentElement.scrollWidth <= innerWidth` is checked, and a note is saved successfully. This clip makes no claim about responsive filter interactions or testing the full discussion history.
 
-![My 360px controls check](demo/docker-quick-check-mobile-360.png)
+![360px controls check](demo/docker-quick-check-mobile-360.png)
 
 ## Verification and isolation
 
-I pass all six checks in rehearsal and in the recorded take, observing 21 successful browser API responses and no unexpected browser errors or failed HTTP responses. I verify seven CHECK/PASS pairs because the third check has two separate cases. I decode the complete video, inspect the result frames, and detect no frozen intervals of eight seconds or longer.
+All six checks passed in rehearsal and in the recorded take, with 21 successful browser API responses and no unexpected browser errors or failed HTTP responses. Seven CHECK/PASS pairs were verified because the third check has two separate cases. The complete video was decoded and its result frames inspected; no frozen intervals of eight seconds or longer were detected.
 
-I use a separate `leadflow-video` Compose project, built through the unchanged repository Dockerfiles. I use frontend port 3100 and API port 4100. MongoDB uses temporary in-memory storage and publishes no host port. I seed only this isolated database, then shut down only this isolated project, without any volume-removal command.
+A separate `leadflow-video` Compose project was built through the unchanged repository Dockerfiles, using frontend port 3100 and API port 4100. MongoDB uses temporary in-memory storage and publishes no host port. Only this isolated database was seeded, then only this isolated project was shut down, without any volume-removal command.
 
-I verify that the original `leadflow` project retains its container IDs and identical lead/discussion data. I do not run destructive commands against its volume. I keep recording helpers and raw takes under ignored `.cache/`.
+The original `leadflow` project was verified to retain its container IDs and identical lead/discussion data. No destructive commands were run against its volume. Recording helpers and raw takes remain under ignored `.cache/`.
 
-I distinguish this automated browser recording from a human personal review. I do not rerun the unchanged application unit-test gates for this presentation-only change.
+This automated browser recording is distinct from a human personal review. The unchanged application unit-test gates were not rerun for this presentation-only change.
 
-I retain the [check results, presentation inventory, Docker provenance and cleanup verification](demo/docker-quick-check-verification.json). Video SHA-256: `c96b64dafdc95305f7aee7ddf58cd8c46adcc67a779f855d95a75bc41ff06036`.
+The [check results, presentation inventory, Docker provenance and cleanup verification](demo/docker-quick-check-verification.json) are retained. Video SHA-256: `c96b64dafdc95305f7aee7ddf58cd8c46adcc67a779f855d95a75bc41ff06036`.
