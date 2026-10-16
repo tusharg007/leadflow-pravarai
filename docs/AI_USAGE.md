@@ -6,7 +6,7 @@ Codex generated the hygiene files, API documentation, backend configuration, Mon
 
 Codex also generated the Next.js frontend, Radix primitives, TanStack Query caches, forms, URL state, MSW tests, browser smoke/screenshot tools and Docker delivery. It corrected logging/CORS, abort handling, strict optional typing, font resolution, responsive truncation and runner compatibility while verifying the implementation.
 
-I distinguish automated checks from personal review: Codex performed recorded checks and browser verification; I have not yet completed my own personal review or submission video. I have no AI features in the app. I record the unattended scope in [the run prompt](codex/07_UNATTENDED_RUN_PROMPT.md), decisions in [the log](codex/AUTONOMOUS_RUN_LOG.md), and results in [the report](codex/06_AUTONOMOUS_RUN_REPORT.md).
+Codex performed the recorded checks and browser verification, and the videos are automated recordings. I ran the Docker setup, seed and API error checks myself and viewed the app in the browser. I have no AI features in the app. I record the unattended scope in [the run prompt](codex/07_UNATTENDED_RUN_PROMPT.md), decisions in [the log](codex/AUTONOMOUS_RUN_LOG.md), and results in [the report](codex/06_AUTONOMOUS_RUN_REPORT.md).
 
 ## Direct implementation prompt
 

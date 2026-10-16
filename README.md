@@ -227,8 +227,12 @@ My runner seeds an isolated database, builds both apps, starts owned servers on 
 
 ## Screenshots and demo
 
-I keep [mobile](docs/screenshots/list-360.png), [tablet](docs/screenshots/list-768.png), [add-lead](docs/screenshots/add-lead-dialog.png), [timeline](docs/screenshots/timeline-dialog.png), [long mobile timeline](docs/screenshots/timeline-long-mobile.png), and [overdue](docs/screenshots/overdue-lead.png) screenshots in `docs/screenshots/`. My submission video remains a placeholder: **[add demo video link here]**.
+I keep [mobile](docs/screenshots/list-360.png), [tablet](docs/screenshots/list-768.png), [add-lead](docs/screenshots/add-lead-dialog.png), [timeline](docs/screenshots/timeline-dialog.png), [long mobile timeline](docs/screenshots/timeline-long-mobile.png), and [overdue](docs/screenshots/overdue-lead.png) screenshots in `docs/screenshots/`.
+
+Demo videos (automated, annotated recordings produced with Codex and Playwright on seeded demo data, not manual screen captures): [full walkthrough](docs/demo/leadflow-walkthrough.mp4) and [Docker build check](docs/demo/docker-quick-check.mp4). Verification data is in `docs/demo/`.
 
 ## AI usage
 
-I used OpenAI Codex under my phase prompts and project instructions to generate the contract, backend, frontend, tests, Dockerfiles and docs. Codex reviewed failures and exercised automated browser flows, correcting logging/CORS, abort handling, strict optional types, font paths, responsive truncation and test tooling. I have not yet completed my own personal review or submission video. I distinguish those human tasks from the recorded automated verification and keep prompt references in [docs/AI_USAGE.md](docs/AI_USAGE.md).
+I used OpenAI Codex under my phase prompts and project instructions to generate the contract, backend, frontend, tests, Dockerfiles and docs. Codex reviewed failures and exercised automated browser flows, correcting logging/CORS, abort handling, strict optional types, font paths, responsive truncation and test tooling.
+
+I ran the Docker setup, seed and API error checks myself and viewed the app in the browser. Codex generated the code, tests and both demo videos under my prompts; the videos and their PASS cards are automated, not a manual review. I keep prompt references in [docs/AI_USAGE.md](docs/AI_USAGE.md).
