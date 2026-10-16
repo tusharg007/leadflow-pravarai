@@ -235,9 +235,9 @@ The runner seeds an isolated database, builds both apps, starts owned servers on
 
 The brief encourages AI tooling, so here is exactly how I used it.
 
-- **Planning and review (Claude):** I used Claude to turn the assignment into an implementation plan, an API contract outline and build prompts, and to review the delivered code and test evidence.
-- **Implementation (OpenAI Codex):** Codex generated most of the code in phases (backend, frontend, tests, Docker setup, docs) from those prompts and the rules in `AGENTS.md`.
-- **My part:** I chose the scope and stack (Next.js + TypeScript with an Express/MongoDB backend instead of the suggested FastAPI), set the constraints and acceptance checks, ran the result myself (Docker setup, seed, API error cases, browser) and sent review findings back for fixes. Defects found and corrected this way include seed dates that depended on the server timezone, a clipped mobile dialog with very long names, closed leads showing as overdue, and unnecessary CORS preflight requests.
+- **Review (Claude):** I used Claude to review the delivered code and test evidence.
+- **Implementation (OpenAI Codex):** Codex implemented stuffs under my guidance and it utilised the prompts and the rules in `AGENTS.md`.
+- **My part:** I set the requirements and stack (Next.js + TypeScript, with an Express/MongoDB backend instead of the suggested FastAPI) and approved a contract-first plan with quality gates: strict TypeScript, lint, typecheck, tests and build. I treated generated code as a draft. I ran the Docker setup, seed, API error cases and browser checks myself, then had an independent review find real defects: timezone-dependent seed dates, a clipped mobile dialog with very long names, closed leads shown as overdue, and needless CORS preflights. Each was fixed with a regression test. The design decisions and trade-offs are documented in this README.
 - **Demo videos:** the recordings in `docs/demo/` are automated Playwright recordings produced with Codex, not manual screen captures.
 
 Prompts, the plan and run notes are in [docs/ai](docs/ai/) and [docs/AI_USAGE.md](docs/AI_USAGE.md).
