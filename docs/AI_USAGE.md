@@ -10,7 +10,7 @@
 1. Inputs: the assignment, the wireframes and a UI boilerplate (style reference only).
 2. A written plan and API contract (`docs/ai/01_IMPLEMENTATION_PLAN.md`, `docs/API.md`) and standing rules (`AGENTS.md`) were fixed before code generation.
 3. Codex built the backend first, then the frontend, Docker setup and docs in phases. Each phase had to pass lint, typecheck, tests and build. Phases 2 to 5 ran as one extended non-interactive session; I reviewed the result afterwards.
-4. I ran the app myself (Docker setup, seed, API error cases, browser) and sent independent review findings back for fixes.
+4. Generated code was treated as a draft. I ran the app myself (Docker setup, seed, API error cases, browser checks), then had an independent review find defects, which were fixed with regression tests (see below).
 
 ## What the AI generated
 
